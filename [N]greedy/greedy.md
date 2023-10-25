@@ -1,0 +1,5 @@
+# greedy
+
+## intro
+
+## pattern
