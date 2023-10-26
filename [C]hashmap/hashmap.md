@@ -41,16 +41,18 @@
     - num
     - idx
     - list or set
-        - value can be a list or set, to store every element met the condition/pattern of key
+        - store key is every element met the condition/pattern of key
+        - store value is a list or a set of elements
 
 **store sth’s freq**
 
-- num
-- char
-- word
-- point
-- freq (we can even store freq’s freq)
-- some pattern (use tuple as key)
+- the store key can be
+  - num
+  - char
+  - word
+  - point
+  - freq (we can even store freq’s freq)
+  - some pattern (use tuple as key)
 
 **snapshot of hashmap**
 
