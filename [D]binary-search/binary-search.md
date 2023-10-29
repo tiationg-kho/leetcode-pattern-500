@@ -72,6 +72,7 @@ class Solution:
     - distance
     - total
     - sum
+    - cost
 - can be for specific val or for most close val. mostly for most close val
 
 **use a boundary to record**
