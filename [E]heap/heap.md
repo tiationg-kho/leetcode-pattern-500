@@ -57,7 +57,7 @@
 - use pop out elements to keep recording the previous best result
   - the previous best result is according to cur task (also applicable for future tasks to use)
 - push the cur end time and cur result in heap for future tasks
-  - when pushing also treat this profit as a candidate of best result
+  - when pushing also treat this cur result as a candidate of best result
   - we need to keep recording the all time best result
 
 **top k problem (based on heap)**
@@ -84,6 +84,7 @@
 **two heap problem**
 
 - normal two heap
+  - new element must get into proper heap
 - lazy removal
     - size
     - hashmap
