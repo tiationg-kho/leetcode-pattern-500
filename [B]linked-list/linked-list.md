@@ -111,21 +111,23 @@ prev and cur
         prev = cur
         cur = nxt
     return prev
-    
+
     # version 2
-    def reverse_nodes(self, prev_nodes, old_head, old_tail, next_nodes):
-        prev = prev_nodes
-        cur = old_head
+    def reverse_nodes(self, prev_nodes, old_start, old_end, next_nodes):
+
+        prev = None
+        cur = old_start
         while cur and cur != next_nodes:
             nxt = cur.next
             cur.next = prev
             prev = cur
             cur = nxt
-        new_head = prev
-        new_tail = old_head
-        prev_nodes.next = new_head
-        new_tail.next = next_nodes
-        return new_tail, next_nodes
+        new_start = prev
+        new_end = old_start
+        prev_nodes.next = new_start
+        new_end.next = next_nodes
+
+        return new_end, next_nodes
     ```
     
 - swap nodes in pairs

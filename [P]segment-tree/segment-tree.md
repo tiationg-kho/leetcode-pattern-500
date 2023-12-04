@@ -8,14 +8,9 @@
 - point modify `O(logC)` or `O(logn)`
 - range query `O(logC)` or `O(logn)`
     - sum
-    - average
     - count
-    - sign
-    - product
-    - min
     - max
-    - gcd
-    - lcm
+    - other related aggregations
 - range modify `O(logC)` if using lazy propagation
     - can have multiple lazy variables depends on how many operations need
 - push_down(), push_up(), update(), query() will be implemented differently depends on the diff type of range query and range modify
