@@ -157,53 +157,47 @@ class Solution:
 ```python
 # dijkstra
 # single source shortest path algorithm (only handle positive weight edge)
-# can get shortest path from one node to all other nodes (still valid within some condition added)
+# can get shortest path from one node to all other nodes
 # based on bfs and greedy
 
-from collections import defaultdict
 from heapq import *
-class Solution:
-    def dijkstra(self, edges: List[List[int]], n: int, k: int) -> int:
-        node_edges = defaultdict(list)
-        for u, v, w in times:
-            node_edges[u].append((v, w))
-        node_distance = defaultdict(int)
-        for i in range(1, n + 1):
-            node_distance[i] = float('inf')
-        visited_nodes = set()
-        node_distance[k] = 0
-        heap = [(0, k)]
-        while heap:
-            prev, node = heappop(heap)
-            if node in visited_nodes:
-                continue
-            visited_nodes.add(node)
-            node_distance[node] = prev
-            for neighbor, weight in node_edges[node]:
-                distance = prev + weight
-                if distance < node_distance[neighbor]:
-                    heappush(heap, (distance, neighbor))
-        
-        return node_distance
+from collections import defaultdict
+def dijkstra(edges, V, src):
+    graph = defaultdict(list)
+    for u, v, w in edges:
+        graph[u].append((v, w))
 
-# time O(V + E + ElogE)
+    node_dist = defaultdict(int)
+    for i in range(V):
+        node_dist[i] = float('inf')
+
+    heap = [(0, src)]
+    node_dist[src] = 0
+    visited = set()
+    while heap:
+        prev, node = heappop(heap)
+        if node in visited:
+            continue
+        visited.add(node)
+        for next_node, weight in graph[node]:
+            if prev + weight < node_dist[next_node]:
+                d = prev + weight
+                heappush(heap, (d, next_node))
+                node_dist[next_node] = d
+    return node_dist
+
+# time O(V + E + ElogE), ElogE -> Elog(V**2) -> ElogV
 # space O(V+E)
 # using dijkstra
 '''
-1. inside while loop, every edge will visit at most twice, because the endpoints of edge will only visit once
-2. the heap size is |E|
-'''
-'''
-1. build graph (node_edges dict)
-2. init node_distance dict (could be multiple layer dict if need)
-3. init visited_nodes set
-4. set init val for start node (in the node_distance dict)
-5. init heap (element in heap contain multiple info)
-6. put start edge/node in heap (begin traversal with start node)
-7. keep heappop the most promising edge/node (til heap is empty or met the end node)
-8. check the node has visited or not (can also check distance if need)
-9. if visited just skip, else add to set and record the new best distance with that node 
-10. relax each edge with this node (if distance is better than add promising edge/node to heap)
+1. build graph
+2. init node_dist dict/array
+3. init visited set
+4. set init val for start node (in the node_dist)
+5. init heap with start node
+6. keep heappop the most promising edge/node
+7. if already visited just skip, else set as visited
+8. relax each edge with this node
 '''
 ```
 
@@ -223,7 +217,7 @@ P node to Q node's shortest path is at most V nodes and V - 1 edges,
 otherwise means this path pass same node twice (there is a negative cycle)
 '''
 
-def bellman_ford(self, src, dst, edges, V):
+def bellman_ford(src, dst, edges, V):
     node_dist = [float("inf") for _ in range(V)]
     node_dist[src] = 0
 
@@ -243,35 +237,18 @@ def bellman_ford(self, src, dst, edges, V):
 # space O(V)
 # using bellman ford
 '''
-1. build graph (need a collection of all edges)
-2. init node_distance dict/array
-3. set init val for start node in node_distance
+1. build graph
+2. init node_dist dict/array
+3. set init val for start node (in the node_dist)
 4. relax/update all edges in every iteration
-   (will have V - 1 times iteration, 
-   if we want only k iter then we need temp node_distance for each iter)
-   the logic of relax is that if you can go to u node, 
+   - will have V - 1 times iteration, 
+   if we want only k iter then we need temp_node_dist for each iter,
+   to guarantee the result come from last iteration
+   - the logic of relax is that if you can go to u node, 
    and have a better distance to v node by using u-v edge, 
    then upddate distance for v node
 5. if still have any edge can relax, then there must be a negative cycle
 '''
-
-class Solution:
-    def bellman_ford(self, V: int, edges: List[List[int]], src: int, dst: int, k: int) -> int:
-        node_distance =[float('inf') for _ in range(n)]
-        node_distance[src] = 0
-
-        for _ in range(k + 1):
-            temp_node_distance = node_distance[:]
-            for u, v, w in flights:
-                if node_distance[u] != float('inf') and node_distance[u] + w < temp_node_distance[v]:
-                    temp_node_distance[v] = node_distance[u] + w
-            node_distance = temp_node_distance
-        
-        return node_distance[dst] if node_distance[dst] != float('inf') else - 1
-
-# time O(kE), at most O(VE) for original bellman ford algo
-# space O(V)
-# using bellman ford
 ```
 
 ## graph floyd warshall pattern
@@ -286,7 +263,7 @@ class Solution:
 # based on dp
 # idea: go through all possible intermediate node
 
-def floyd_warshall(self, edges, V):
+def floyd_warshall(edges, V):
   dist = [[float('inf') for _ in range(V)] for _ in range(V)]
 
   for start, end, weight in edges:
@@ -338,7 +315,7 @@ def kruskal(n, edges):
     edges.sort(key = lambda x: x[2])
     uf = UnionFind(n)
     mst = []
-    for u, v, w in new_edges:
+    for u, v, w in edges:
         if not uf.is_connected(u, v):
             uf.union(u, v)
             mst.append((u, v, w))
