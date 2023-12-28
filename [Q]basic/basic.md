@@ -1561,14 +1561,17 @@ public class Main {
 
 import java.util.*;
 
-class Word {
-    String content;
-    Integer freq;
+class FreqWord {
+    private String content;
+    private Integer freq;
 
-    public Word(String content, Integer freq) {
+    public FreqWord(String content, Integer freq) {
         this.content = content;
         this.freq = freq;
     }
+
+    public String getContent() { return content; }
+    public Integer getFreq() { return freq; }
 }
 
 public class Main {
@@ -1578,19 +1581,27 @@ public class Main {
         // init, default is min heap
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         PriorityQueue<Integer> pq2 = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Word> pq3 = 
-            new PriorityQueue<>((a, b) -> a.freq != b.freq ? 
-                                a.freq - b.freq : a.content.compareTo(b.content));
+        PriorityQueue<FreqWord> pq3 = 
+            new PriorityQueue<>((a, b) -> a.getFreq() != b.getFreq() ? 
+                                a.getFreq() - b.getFreq() : a.getContent().compareTo(b.getContent()));
+        /*
+        PriorityQueue<FreqWord> pq3 = new PriorityQueue<>(
+            Comparator.comparing(FreqWord::getFreq)
+                      .thenComparing(FreqWord::getContent)
+        );
+        */
 
         // peek in O(1)
-        pq3.offer(new Word("mango", 25));
-        System.out.println(pq3.peek().content); // mango
-        pq3.offer(new Word("pineapple", 10));
-        System.out.println(pq3.peek().content); // pineapple
-        pq3.offer(new Word("banana", 10));
-        System.out.println(pq3.peek().content); // banana
-        pq3.offer(new Word("grape", 5));
-        System.out.println(pq3.peek().content); // grape
+        pq3.offer(new FreqWord("mango", 25));
+        System.out.println(pq3.peek().getContent()); // mango
+        pq3.offer(new FreqWord("pineapple", 10));
+        System.out.println(pq3.peek().getContent()); // pineapple
+        pq3.offer(new FreqWord("banana", 10));
+        System.out.println(pq3.peek().getContent()); // banana
+        pq3.offer(new FreqWord("apple", 5));
+        System.out.println(pq3.peek().getContent()); // apple
+        pq3.offer(new FreqWord("grape", 5));
+        System.out.println(pq3.peek().getContent()); // apple
 
         // size in O(1)
         System.out.println(pq3.size()); // 4
@@ -1628,18 +1639,18 @@ public class Main {
         // init
         ArrayDeque<Integer> stack = new ArrayDeque<>();
 
-        // push in O(1)
+        // push in O(1) (in left)
         stack.push(1);
         stack.push(2);
         stack.push(3);
         System.out.println(stack); // [3, 2, 1]
 
-        // pop in O(1)
+        // pop in O(1) (in left)
         Integer num1 = stack.pop();
         System.out.println(num1); // 3
         System.out.println(stack); // [2, 1]
 
-        // peek in O(1)
+        // peek in O(1) (in left)
         Integer num2 = stack.peek();
         System.out.println(num2); // 2
         System.out.println(stack); // [2, 1]
@@ -1658,20 +1669,23 @@ public class Main {
         // init
         ArrayDeque<Integer> queue = new ArrayDeque<>();
 
-        // push in O(1)
+        // push in O(1) (in right)
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
         System.out.println(queue); // [1, 2, 3]
 
-        // pop in O(1)
+        // pop in O(1) (in left)
         Integer num1 = queue.poll();
         System.out.println(num1); // 1
         System.out.println(queue); // [2, 3]
 
-        // peek in O(1)
+        // peek (in left) and peekLast (in right) in O(1)
         Integer num2 = queue.peek();
         System.out.println(num2); // 2
+        System.out.println(queue); // [2, 3]
+        Integer num3 = queue.peekLast();
+        System.out.println(num3); // 3
         System.out.println(queue); // [2, 3]
 
         // size in O(1)
@@ -1725,7 +1739,11 @@ public class Main {
 
 # string
 ```Java
-// String and StringBuilder
+// String and StringBuilder and StringBuffer
+
+// String: Immutable, safe for use in multi-threaded environments, but may be inefficient in scenarios requiring extensive modifications due to constant creation of new objects
+// StringBuilder: Mutable, not thread-safe, efficient for single-threaded scenarios where lots of modifications are required
+// StringBuffer: Mutable, thread-safe, suitable for multi-threaded scenarios but slower than StringBuilder due to synchronization
 
 import java.util.*;
 
@@ -1792,6 +1810,12 @@ public class Main {
         String afterReplace = beforeReplace.replace("o", "a");
         System.out.println(afterReplace); // Yala
 
+        // concat in O(n)
+        String s1 = "a" + "b" + "c";
+        System.out.println(s1); // abc
+        String s2 = "Hello".concat(" World").concat("!!"); 
+        System.out.println(s2); // Hello World!!
+
         // char related methods
         char c1 = 'a';
         char c2 = 'A';
@@ -1809,6 +1833,19 @@ public class Main {
         sb2.append("f");
         System.out.println(sb1.toString()); // f
         System.out.println(sb2.reverse().toString()); // felppA
+
+        // StringBuffer
+        StringBuffer sbf = new StringBuffer("Hello");
+        sbf.append(" World");
+        System.out.println(sbf.toString()); // Hello World
+        StringBuffer sb = new StringBuffer("Hello");
+        sb.insert(5, " World"); // Hello World
+        StringBuffer sb = new StringBuffer("HelloWorld");
+        sb.delete(5, 10); // Hello
+        StringBuffer sb = new StringBuffer("HelloWorld");
+        sb.replace(5, 10, " Friend"); // Hello Friend
+        StringBuffer sb = new StringBuffer("Hello");
+        sb.reverse(); // olleH
     }
 }
 ```
@@ -1865,4 +1902,236 @@ public class Main {
         System.out.println(node1.left.right); // null
     }
 }
+```
+
+# sort
+```Java
+// comparable interface and comparator interface
+// nested classes (static nested class, inner class, local class, anonymous class)
+// lambda expression
+// method references
+
+import java.util.*;
+
+class Person implements Comparable<Person> {
+    private String name;
+    private int age;
+
+    // Constructor chaining
+    public Person() {
+        this("Default", 100);
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() { return name; }
+
+    public int getAge() { return age; }
+
+    @Override
+    public String toString() { return this.name + " - " + this.age; }
+
+    // Implementing the Comparable Interface and compareTo method - sort by age (asc)
+    @Override
+    public int compareTo(Person other) {
+        return this.age - other.age; 
+    }
+
+    // Static nested class - Implementing the Comparator Interface and compare method - sort by name (asc)
+    static class PersonNameComparator implements Comparator<Person> {
+        @Override
+        public int compare(Person p1, Person p2) {
+            return p1.name.compareTo(p2.name);
+        }
+    }
+
+    // Inner class - Implementing the Comparator Interface and compare method - sort by name length (asc)
+    class PersonNameLengthComparator implements Comparator<Person> {
+        @Override
+        public int compare(Person p1, Person p2) {
+            return Integer.compare(p1.name.length(), p2.name.length());
+        }
+    }
+
+    // Local class in the method - Implementing the Comparator Interface and compare method - sort by the last char of the name (asc)
+    public static void sortByNameLastChar(List<Person> people) {
+        class PersonLastNameCharacterComparator implements Comparator<Person> {
+            @Override
+            public int compare(Person p1, Person p2) {
+                return Character.compare(p1.name.charAt(p1.name.length() - 1), p2.name.charAt(p2.name.length() - 1));
+            }
+        }
+        Collections.sort(people, new PersonLastNameCharacterComparator());
+    }
+
+    // Anonymous class in the method - Implementing the Comparator Interface and compare method - sort by age (asc)
+    public static void sortByAgeAscI(List<Person> people) {
+        Collections.sort(people, new Comparator<Person>() {
+            @Override
+            public int compare(Person p1, Person p2) {
+                return p1.age - p2.age;
+            }
+        });
+    }
+
+    // Lambda expression in the method - sort by age (desc)
+    public static void sortByAgeDesc(List<Person> people) {
+        Collections.sort(people, (p1, p2) -> p2.age - p1.age);
+    }
+
+    // Lambda expression in the method - sort by age (asc)
+    public static void sortByAgeAscII(List<Person> people) {
+        Collections.sort(people, Comparator.comparing(p -> p.age));
+    }
+
+    // Method references in the method - sort by age (asc) then name (asc)
+    public static void sortByAgeThenName(List<Person> people) {
+        Collections.sort(people, Comparator.comparing(Person::getAge).thenComparing(Person::getName));
+    }
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(new Person("Appkz", 30));
+        people.add(new Person("Zeeeec", 25));
+        people.add(new Person("Cata", 20));
+        people.add(new Person("Pay", 50));
+        people.add(new Person("Ye", 50));
+
+        // Sorting - element's Class must implement the Comparable Interface and compareTo method - sort by age (asc)
+        Collections.sort(people);
+
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Pay - 50
+        Ye - 50
+        */
+
+        // Sorting with the Comparator - Comparator comes from a static nested class - sort by name (asc)
+        Collections.sort(people, new Person.PersonNameComparator());
+
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Appkz - 30
+        Cata - 20
+        Pay - 50
+        Ye - 50
+        Zeeeec - 25
+        */
+
+        // Sorting with the Comparator and revsersed method - Comparator comes from a static nested class - sort by name (desc)
+        Collections.sort(people, new Person.PersonNameComparator().reversed());
+
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Zeeeec - 25
+        Ye - 50
+        Pay - 50
+        Cata - 20
+        Appkz - 30
+        */
+
+        // Sorting with the Comparator - Comparator comes from a inner class - sort by name length (asc)
+        Collections.sort(people, new Person().new PersonNameLengthComparator());
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Ye - 50
+        Pay - 50
+        Cata - 20
+        Appkz - 30
+        Zeeeec - 25
+        */
+
+        // Sorting with static method (local class in that method) - sort by the last char of the name (asc)
+        Person.sortByNameLastChar(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Ye - 50
+        Pay - 50
+        Appkz - 30
+        */
+
+        // Sorting with static method (anonymous class in that method) - sort by age (asc)
+        Person.sortByAgeAscI(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Ye - 50
+        Pay - 50
+        */
+
+        // Sorting with static method (lambda expression in that method) - sort by age (desc)
+        Person.sortByAgeDesc(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Ye - 50
+        Pay - 50
+        Appkz - 30
+        Zeeeec - 25
+        Cata - 20
+        */
+
+        // Sorting with static method (lambda expression in that method) - sort by age (asc)
+        Person.sortByAgeAscII(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Ye - 50
+        Pay - 50
+        */
+
+        // Sorting with static method (method references in that method) - sort by age (asc) then name (asc)
+        Person.sortByAgeThenName(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("---");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Pay - 50
+        Ye - 50
+        */
+    }
+}
+
 ```

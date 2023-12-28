@@ -16,18 +16,18 @@
 ```python
 
 def backtrack(res, path, count, memo, index/node):
-  if BOUND_REACHED:	
-		return
+    if BOUND_REACHED:	
+        return
 
-  if GOAL_REACHED:
-		res.append(COPIED_PATH)
-		return
+    if GOAL_REACHED:
+        res.append(COPIED_PATH)
+        return
 
-	for CHOCIE in CHOICES:
-		if CHOICE is VALID:
-			MAKE_CHOICE
-			backtrack(res, path, count, memo, index/node)
-			UNDO_CHOICE
+    for CHOCIE in CHOICES:
+        if CHOICE is VALID:
+            MAKE_CHOICE
+            backtrack(res, path, count, memo, index/node)
+            UNDO_CHOICE
 ```
 
 ## pattern
