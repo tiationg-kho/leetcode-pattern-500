@@ -13,4 +13,4 @@ class Solution:
             
 # time O(n), due to traverse
 # space O(n), can be O(1) since char's number is limited
-# using string and hashmap
+# using hashmap and build bijection mapping relation

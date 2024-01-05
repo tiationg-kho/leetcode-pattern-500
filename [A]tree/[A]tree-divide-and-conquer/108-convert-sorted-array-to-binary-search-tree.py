@@ -21,4 +21,32 @@ class Solution:
 
 # time O(n), due to traverse each node once
 # space O(logn), due to memo stack's size, and output is O(n)
-# using tree and divide and conquer and re-build BST (top-down approach) and binary search tree's properties
+# using tree and divide and conquer and re-build BST (top-down approach)
+
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        
+        idx = 0
+
+        def dfs(left, right):
+            nonlocal idx
+            if left > right:
+                return None
+            
+            mid = (left + right) // 2
+            left_subtree = dfs(left, mid - 1)
+
+            node = TreeNode(nums[idx])
+            idx += 1
+
+            node.left = left_subtree
+
+            right_subtree = dfs(mid + 1, right)
+            node.right = right_subtree
+            return node
+
+        return dfs(0, len(nums) - 1)
+
+# time O(n)
+# space O(logn), due to recursion stack
+# using tree and divide and conquer and re-build BST (inorder approach)

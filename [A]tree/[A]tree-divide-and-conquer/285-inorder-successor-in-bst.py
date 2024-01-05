@@ -17,6 +17,6 @@ class Solution:
                 cur = cur.right
         return res
         
-# time O(n), it can be O(logn) for balanced tree
+# time O(n)
 # space O(1)
 # using tree and divide and conquer and bst

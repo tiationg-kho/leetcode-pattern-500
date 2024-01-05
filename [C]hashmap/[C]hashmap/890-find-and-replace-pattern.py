@@ -17,4 +17,4 @@ class Solution:
     
 # time O(nL), n is the number of words
 # space O(1), not counting output
-# using hashmap
+# using hashmap and build bijection mapping relation

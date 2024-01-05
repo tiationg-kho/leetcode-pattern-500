@@ -18,7 +18,7 @@ class Solution:
     
 # time O(n)
 # space O(1)
-# using hashmap
+# using hashmap and store sth’s freq
 '''
 1. positive freq means it appeared more times in the secret
 2. negative freq means it appeared more times in the guess

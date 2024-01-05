@@ -27,4 +27,4 @@ class DetectSquares:
 
 # time O(1) for init and add(), O(n) for count
 # space O(n)
-# using hashmap
+# using hashmap and store valid val’s freq for finding pairs

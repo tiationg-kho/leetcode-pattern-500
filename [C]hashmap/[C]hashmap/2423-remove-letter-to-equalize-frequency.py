@@ -23,7 +23,7 @@ class Solution:
 
 # time O(n)
 # space O(1)
-# using hashmap
+# using hashmap and store sth’s freq
 '''
 valid: 1 freq, all freq == 1
 valid: 1 freq, (freq) count == 1

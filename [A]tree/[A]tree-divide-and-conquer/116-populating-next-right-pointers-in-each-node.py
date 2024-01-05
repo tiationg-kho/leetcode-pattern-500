@@ -10,16 +10,16 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        upper_level_start = root
-        while upper_level_start:
-            cur = upper_level_start
-            while cur:
-                if cur.left:
-                    cur.left.next = cur.right
-                if cur.right and cur.next:
-                    cur.right.next = cur.next.left
-                cur = cur.next
-            upper_level_start = upper_level_start.left
+        upper_start = root
+        while upper_start:
+            upper_cur = upper_start
+            while upper_cur:
+                if upper_cur.left:
+                    upper_cur.left.next = upper_cur.right
+                if upper_cur.right and upper_cur.next:
+                    upper_cur.right.next = upper_cur.next.left
+                upper_cur = upper_cur.next
+            upper_start = upper_start.left
         return root
     
 # time O(n)

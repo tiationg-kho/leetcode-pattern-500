@@ -11,7 +11,7 @@ class Solution:
 
 # time O(n)
 # space O(n)
-# using hashmap
+# using hashmap and store valid val’s freq for finding pairs
 '''
 1. j - i == nums[j] - nums[i] => nums[j] - j == nums[i] - i
 '''

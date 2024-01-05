@@ -1221,28 +1221,82 @@ if __name__ == "__main__":
     print(app.factorial(5)) # 120
 
 # dunder method
-# __init__
-# __lt__, __le__
-# __len__
-# __str__
+# initializes new object instances
+def __init__(self, args):
+    pass
+# defines equal comparison
+def __eq__(self, other):
+    pass
+# defines less than comparison
+def __lt__(self, other):
+    pass
+# defines less or equal comparison
+def __le__(self, other):
+    pass
+# provides string representation of object
+def __str__(self):
+    pass
+# returns length or size of object
+def __len__(self):
+    pass
 
 # decorator
-# cache
+# cache decorator can memoize or cache the return value of a function
 from functools import cache
 @cache
 def method():
     pass
 
 # module
-# modules: libraries, functions, classes, files
-# __name__ is the name of module
-# CODES will run when we are running this module currently
+
+# a module in Python is essentially a file containing Python definitions and statements
+# the file name is the module name with the suffix .py added
+# can define functions, classes, and variables, and can include runnable code
+
+# __name__ variable evaluates to the name of the module
+# if a file is being run as the main program, __name__ is set to the string "__main__"
+
+# CODES will run when we are running this module as the main program
 # if we are importing this module, then these CODES will not run
 if __name__ == "__main__":
 	# CODES here
+    pass
 
 # scope
-# LEGB rules: local -> enclosing/nonlocal -> global -> builtin 
+# LEGB rules: local -> enclosing -> global -> builtin
+
+# global scope
+x = "globalX"
+y = "globalY"
+z = "globalZ"
+
+def outer():
+    # enclosing scope
+    x = "enclosingX"
+    y = "enclosingY"
+    z = "enclosingX"
+
+    def inner():
+        # global
+        global z
+
+        # nonlocal
+        nonlocal y
+        
+        # local scope
+        x = "localX"
+
+        print(x)
+        print(y)
+        print(z)
+
+    inner()
+
+outer()
+# localX
+# enclosingY
+# globalZ
+
 ```
 
 # **Java**

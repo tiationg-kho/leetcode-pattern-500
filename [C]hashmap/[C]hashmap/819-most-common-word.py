@@ -24,4 +24,4 @@ class Solution:
 
 # time O(n+m)
 # space O(n+m)
-# using hashmap
+# using hashmap and store sth’s freq
