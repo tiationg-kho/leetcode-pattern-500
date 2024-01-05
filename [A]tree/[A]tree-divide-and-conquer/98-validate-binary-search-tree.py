@@ -18,4 +18,4 @@ class Solution:
         
 # time O(n), n is the number of nodes (traverse)
 # space O(n), n is the recursive stack size (imagine an one branch tree)
-# using tree and divide and conquer and two branch top-down and bst, remember to pass down the bound
+# using tree and divide and conquer and two branch top-down and bst

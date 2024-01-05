@@ -25,4 +25,4 @@ class Solution:
     
 # time O(n + m)
 # space O(n), due to hashmap
-# using snapshot of hashmap
+# using hashmap and snapshot of hashmap

@@ -29,7 +29,7 @@ class Solution:
                         
 # time O(m * n**3), m is the number of users and n is the number of websites, not count sorting the potential res
 # space O(m * n**3), due to combinations
-# using hashmap and sort and combinations
+# using hashmap and store sth’s freq and sort and combinations
 '''
 1. same user can only contribute to one pattern once
 '''

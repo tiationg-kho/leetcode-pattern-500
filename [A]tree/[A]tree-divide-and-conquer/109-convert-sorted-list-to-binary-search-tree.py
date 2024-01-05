@@ -41,7 +41,7 @@ class Solution:
     
 # time O(n)
 # space O(logn), due to recursion stack
-# using tree and divide and conquer and re-build BST (inorder approach) and binary search tree's properties
+# using tree and divide and conquer and re-build BST (inorder approach)
 '''
 1. use divide and conquer, simulate inorder traversal
 2. follow linked list ptr, so build left tree first then root then right tree

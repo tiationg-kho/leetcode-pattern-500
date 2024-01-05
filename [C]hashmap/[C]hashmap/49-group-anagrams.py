@@ -11,4 +11,4 @@ class Solution:
 
 # time O(nL)
 # space O(nL)
-# using hashmap
+# using hashmap and store sth’s freq

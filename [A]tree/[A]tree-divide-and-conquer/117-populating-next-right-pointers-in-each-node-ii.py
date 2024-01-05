@@ -10,31 +10,26 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        upper_level_start = root
-        while upper_level_start:
-            upper_level_cur = upper_level_start
-            lower_level_start = None
-            lower_level_cur_end = None
-            while upper_level_cur:
-                if upper_level_cur.left:
-                    if not lower_level_start:
-                        lower_level_start = upper_level_cur.left
-                        lower_level_cur_end = upper_level_cur.left
-                    elif lower_level_cur_end:
-                        lower_level_cur_end.next = upper_level_cur.left
-                        lower_level_cur_end = lower_level_cur_end.next
-
-                if upper_level_cur.right:
-                    if not lower_level_start:
-                        lower_level_start = upper_level_cur.right
-                        lower_level_cur_end = upper_level_cur.right
-                    elif lower_level_cur_end:
-                        lower_level_cur_end.next = upper_level_cur.right
-                        lower_level_cur_end = lower_level_cur_end.next
-                upper_level_cur = upper_level_cur.next
-            upper_level_start = lower_level_start
+        upper_start = root
+        while upper_start:
+            upper_cur = upper_start
+            lower_start = None
+            lower_end = None
+            while upper_cur:
+                if not lower_start:
+                    lower_start = upper_cur.left or upper_cur.right
+                if upper_cur.left:
+                    if lower_end:
+                        lower_end.next = upper_cur.left
+                    lower_end = upper_cur.left
+                if upper_cur.right:
+                    if lower_end:
+                        lower_end.next = upper_cur.right
+                    lower_end = upper_cur.right
+                upper_cur = upper_cur.next
+            upper_start = lower_start
         return root
-                    
+
 # time O(n)
 # space O(1)
 # using tree and divide and conquer and populate next ptr and multi pointers

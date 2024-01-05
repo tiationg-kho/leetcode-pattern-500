@@ -10,37 +10,36 @@
     - non-direction edges
     - one path/edge between any two vertices/node
 - important tree concepts
+    - traversal of the tree
+    - depth/height of tree
+    - tree and its subtree
+    - tree node’s degree
     - types of node
         - root
-        - leaf
-        - parent
-        - child
-        - sibling
-        - left boundary
-        - right boundary
+        - internal vs leaf
+        - parent vs child vs sibling
+        - root vs left boundary vs right boundary vs leaf
+        - predecessor vs successor
         - lowest common ancestor (LCA) of two nodes
-    - depth/height of tree
-    - node’s degree
-    - subtree
-    - traversal
     - types of tree
         - binary tree
-            - every node has at most two children (left and right)
+            - every node has at most 2 children (left and right)
         - binary search tree (BST)
             - for each node
                 - nodes in left subtree have smaller keys
                 - nodes in right subtree have larger keys
             - inorder traversal res is an ascending sorted list
         - height-balanced binary tree
-            - depth of the two subtrees of every node never differs by more than one
+            - depth of the subtrees of every node never differs by more than 1
         - perfect binary tree
-            - all leaf nodes at the same depth
-            - every node has degree 2
+            - every internal node has exactly 2 child nodes
+            - every leaf nodes are at the same level
         - complete binary tree
             - every level is completely filled besides last level
             - nodes in last level align left
+            - typically used in implementing heap
         - full/strictly binary tree
-            - every non-leaf node has degree 2
+            - every node has exactly 0 or 2 children
 
 **how to define tree node**
 
@@ -221,7 +220,7 @@ class TreeNode:
             stack.append(node.left)
         if node.right:
             stack.append(node.right)
-    return rev_postorder[::-1]
+    return rev_postorder[::- 1]
     
     # iterative II
     postorder = []
@@ -244,80 +243,89 @@ class TreeNode:
 5. Morris inorder traversal
     1. in normal inorder traversal, we store cur node in stack then got to left, but morris traversal store cur node by link it from its predecessor
     2. link the predecessor and successor
-        1. only the node with left subtree will need its predecessor to link to itself (successor)
+        1. only the node with left subtree will need its predecessor to link to itself (as successor)
         2. the predecessor node is the right-most node in left subtree
         3. due to linking, will modify the tree data temporary
     3. time `O(n)`, due to visiting all nodes
-        1. each edge is traversed for 3 times at most
-            1. traverse through
-            2. find predecessor (and build link)
-            3. find predecessor (and found link already existed)
-        2. why finding predecessor would not increase time complexity
-            1. intuitive way to think about it is that more right branch nodes will make link route longer, but more right branch nodes will not cause the need of more link route for themself
-            2. only more left branch nodes will need more link route for themself, but more left branch nodes only need the short link route for themself
-    4. space `O(1)`, due to no cost for stack, queue or recursion stack (not counting output list’s cost)
+        - each node is traversed 4 times at most
+            - single upper node find its predecessor (and build its link) will pass through cur node
+            - traverse to cur node
+            - from cur node's predecessor, go back to cur node (this time will unlink the predecessor with cur node)
+            - single upper node find its predecessor (and destroy its link) will pass through cur node
+        - why finding predecessor would not increase time complexity
+            - intuitive way to think about it is that 
+              1. more right branch nodes will make link route longer, but more right branch nodes will not increase the need of more link route for themself
+              2. only more left branch nodes will need more link route for themself, but more left branch nodes only need the short link route for themself
+    4. space `O(1)`, due to no cost for stack, queue or recursion stack (not counting cost of output list)
     
     ```python
     inorder = []
     cur = root
     while cur:
-        # if cannot find prev/predecessor of cur, then add cur to list and go to cur.right
+        # if cannot find predecessor of cur, then add cur to list and go to cur.right
+        # means we already visited all nodes in cur node's left subtree, we should record cur node, and go to cur node's right subtree
         if not cur.left:
             inorder.append(cur.val)
             cur = cur.right
 
         else:
-            # find the prev/predecessor of cur (the right-most node in cur.left)
-            prev = cur.left
-            while prev.right and prev.right != cur:
-                prev = prev.right
+            # find the predecessor of cur (the right-most node in cur.left)
+            pred = cur.left
+            while pred.right and pred.right != cur:
+                pred = pred.right
 
-            # make cur as right child of its prev (link the predecessor and successor) and go to cur.left
-            if not prev.right:
-                prev.right = cur
+            # make cur as right child of its pred (link the predecessor and successor) and go to cur.left
+            # we are using this link to simulate store cur node in stack
+            if not pred.right:
+                pred.right = cur
                 cur = cur.left
 
             # if find the linked predecessor, add cur to list and unlink predecessor, then go to cur.right
-            # means just come here from the prev node, the prev has alreardy recorded
+            # means just come here from the prev node, already visited all nodes in cur node's left subtree, we should record cur node, and go to cur node's right subtree
             else:
                 inorder.append(cur.val)
-                prev.right = None
+                pred.right = None
                 cur = cur.right
     return inorder
     ```
     
 6. Divide and Conquer
-    1. use tree’s properties
-        1. range (l and r)
-            1. the idx from preorder, inorder, postorder array
-                1. BST inorder’s val has ascending order
-            2. the idx of the ascending order linked list
-        2. parent and node’s relation
-        3. direction from the parent
-        4. validate the value interval (BST)
+    - use tree’s properties
+        1. idx range (l and r)
+            - the idx from preorder array, inorder array, postorder array, or linked list
+                - BST inorder’s val has ascending order
+        2. val range (lower and upper)
+            - validate the range of value (BST only)
+        3. relation between parent node and child node
 
 ## pattern
 
 - divide and conquer
     - two branch top-down
         - operation can
-            - start from both side’s children (left subtree and right subtree)
             - start from two diff trees
+            - start from both side’s children (left subtree and right subtree)
     - re-build tree (top-down)
         - use divide and conquer
-            - notice: val in tree should be unique
-            - preorder’s first is root
-            - postorder’s last is root
-            - inorder’s middle is root (idx not sure yet)
-                - inorder: left subtree + root + right subtree
-                - we already have the root’s val (from preorder or postorder)
-                - now use hashmap to quickly find the val’s idx in inorder array
-            - parameters we need to pass down: left_idx, right_idx, node_count
+            - parameters we need to pass down: 2 left_idx, 2 right_idx, node_count
+            - when using preorder/postorder and inorder to re-build
+                - notice: val in tree should be unique
+                - preorder’s first is root
+                - postorder’s last is root
+                - inorder’s middle is root (idx not sure yet)
+                    - inorder: left subtree + root + right subtree
+                    - we already have the root’s val (from preorder or postorder)
+                    - now use hashmap to quickly find the val’s idx in inorder array
             - when using preorder and postorder to re-build
                 - notice: val in tree should be unique
+                - preorder’s first is root
+                    - Root + [Left Subtree] + Right Subtree
+                    - Root + [Left Subtree Root + Rest of Left Subtree] + Right Subtree
+                - postorder’s last is root
+                    - [Left Subtree] + Right Subtree + Root
+                    - [Rest of Left Subtree + Left Subtree Root] + Right Subtree + Root 
                 - can not confirm the re-built tree is the only possible tree
-                - only if we know every non-leaf node in tree has degree 2 (full binary tree), then we can try to re-build the full binary tree version as only possible tree
-                    - in other words, if we can guarantee we always have left subtree, then we can re-built the only possible tree
+                - only if we know every internal/non-leaf node in tree has 2 children (full binary tree), then we can try to re-build the full binary tree version as only possible tree
                 - notice: when node_count is 1, just return that node. no need for building left and right subtrees
     - re-build BST
         - top-down approach
@@ -325,14 +333,15 @@ class TreeNode:
                 - in preorder: first node is root of tree/subtree
                 - BST properties: use the lower and upper bound of val to check node is valid or not
             - with inorder
-                - use the left and right ptr
-                - array is already ascending order (BST's inorder res)
-                - just use middle as root
+                - use the left and right ptr to locate mid/root node
+                    - array is already ascending order (BST's inorder res)
+                - build mid/root first, then left subtree, right subtree last
                 - notice: res tree will be height-balanced
         - inorder approach
-            - build left subtree first
-            - then root
-            - right subtree last
+            - use the left and right ptr to locate mid/root node
+                - array is already ascending order (BST's inorder res)
+            - build left subtree first, then root, right subtree last
+                - can use an idx or ptr to retrieve val for building node
             - notice: res tree will be height-balanced
     - use BST attributes
         - left subtree nodes’ val is less than the node’s val
@@ -353,20 +362,19 @@ class TreeNode:
             ```python
             def delete_helper(node):
                 if not node:
-                    return None
+                    return node
                 if node.val == key:
                     if not node.left:
-                        node = node.right
-                    else:
-                        pred = node.left
-                        while pred.right:
-                            pred = pred.right
-                        pred.right = node.right
-                        node = node.left
-                elif node.val > key:
-                    node.left = delete_helper(node.left)
-                else:
+                        return node.right
+                    pred = node.left
+                    while pred and pred.right:
+                        pred = pred.right
+                    pred.right = node.right
+                    return node.left
+                elif node.val < key:
                     node.right = delete_helper(node.right)
+                else:
+                    node.left = delete_helper(node.left)
                 return node
             ```
     - find LCA
@@ -390,7 +398,7 @@ class TreeNode:
                 - upper level’s start ptr
                 - upper level's cur ptr
                 - lower level’s start ptr
-                - lower level’s cur_end ptr
+                - lower level’s end ptr
     - unique BST
         - concept of Catalan Number
         - determine the root first
@@ -447,7 +455,7 @@ class TreeNode:
         - next level’s left is cur * 2
         - next level’s right is cur * 2 + 1
         - eg. root is 1, left child is 2, right child is 3
-        - notice: we can turn this idx to binary to see we choose to go left or go right (eg. idx 5 is 101 means we go left then go right)
+        - notice: we can turn this idx to binary to see we choose to go left or go right (eg. idx 11 is 1011 means we go left then go right then go right again (check the route from 2nd large digit to last digit))
     - assign coordinates
         - using bfs
         - treat root node as (0, 0), then let row and col to define (x, y)

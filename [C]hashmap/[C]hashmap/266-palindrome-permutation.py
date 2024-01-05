@@ -14,4 +14,4 @@ class Solution:
     
 # time O(n)
 # space O(1), due to the number of unique letters
-# using hashmap
+# using hashmap and store sth’s freq

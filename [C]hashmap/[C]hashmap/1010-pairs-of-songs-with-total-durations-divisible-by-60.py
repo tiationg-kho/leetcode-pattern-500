@@ -11,4 +11,4 @@ class Solution:
         
 # time O(n), due to traverse
 # space O(1)
-# using hashmap
+# using hashmap and store valid val’s freq for finding pairs

@@ -25,7 +25,7 @@ class Solution:
 
 # time O(n)
 # space O(n)
-# using hashmap's idea
+# using hashmap and snapshot of hashmap
 '''
 1. think about only consider one char, eg. "AXX'A'XA"
 2. use list to sotre the snapshot of hashmap
