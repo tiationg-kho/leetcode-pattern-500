@@ -75,9 +75,9 @@ class Solution:
     - cost
 - can be for specific val or for most close val. mostly for most close val
 
-**use a boundary to record**
+**use boundary to record**
 
-- depends on different condition, binary search could have different logic branch, and inside certain branch could record the boundary
+- depends on different condition, binary search could have different logic branch, and only inside certain branch could record the boundary
 - when recording, we should consider the concept of greedy algorithm
 - implement
     - use - 1 to initiation, to handle not find situation

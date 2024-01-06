@@ -35,5 +35,25 @@
         - should consider the collision problem
             - solution 1: use 2-choice hashing
             - solution 2: when find match, check the substring really match or not. worst time could degenerate to `O(nm)`
+    ```python
+    def is_length_k_substring_repeat(s, k):
+        base = 27
+        mod = 10**9 + 7
+        hashval_set = set()
+        hashval = 0
+        remove_base = (base ** (k - 1)) % mod
+        for i in range(len(s)):
+            if i < k:
+                hashval = (hashval * base + ord(s[i])) % mod
+                if i == k - 1:
+                    hashval_set.add(hashval)
+            else:
+                hashval -= (remove_base * ord(s[i - k])) % mod
+                hashval = (hashval * base + ord(s[i])) % mod
+                if hashval in hashval_set:
+                    return True
+                hashval_set.add(hashval)
+        return False
+    ``` 
 - **trivial case**
     - make sure be familiar with syntax of string
