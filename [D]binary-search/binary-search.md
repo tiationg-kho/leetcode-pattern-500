@@ -88,19 +88,13 @@ class Solution:
 
 **rotated sorted array**
 
-- if we compare mid to right, we could know we are inside the first part (large val part when mid is larger than right) or second part (small val part when mid is smaller than right)
+- use mid ptr to compare to right ptr (help us to know which side of mid ptr can treat as sorted)
+    - if mid ptr val larger than right ptr val, means the left side of mid ptr has order
+    - if mid ptr val less than right ptr val, means the right side of mid ptr has order
     - then figure out our target val is
-        - between left and mid (ascending order)
-        - not between left and mid (not sure)
-        - between mid and right (ascending order)
-        - not between mid and right (not sure)
+        1. between left and mid (ascending order)
+        2. not between left and mid (not sure)
+        3. between mid and right (ascending order)
+        4. not between mid and right (not sure)
     - notice: above approach is based on the array only contain unique vals
-        - if contain duplicate vals, when the mid == right (means cannot decide we are inside which part), we can only wipe out this one element in this round
-- if we use right as initial boundary, we can compare mid to boundary each round to find the min val in array
-    - if less than
-        - means we are at small part (first round)
-        - record it
-        - keep search the left side
-    - if larger than
-        - means we are at large part (first round)
-        - keep search the right side
+        - if contain duplicate vals, when the mid == right (means cannot decide which side could be sorted), we can only wipe out this one element in this round
