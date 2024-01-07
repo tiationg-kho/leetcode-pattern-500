@@ -63,7 +63,7 @@
 **top k problem (based on heap)**
 
 - heap approach
-    - `O(nlogk)`, use heap (size k)
+    - `O(nlogk)`, use heap (size k) (better choice)
     - `O(n + klogn)`, use heap (size n)
 - quick select approach
     - `O(n)` for average and `O(n**2)` for worst
