@@ -84,10 +84,12 @@
 **two heap problem**
 
 - normal two heap
-  - new element must get into proper heap
-- lazy removal
-    - size
-    - hashmap
+  - one min heap, and one max heap
+  - element must go into proper heap
+  - make sure to maintain the relation between two heaps
+- lazy removal technique
+    - use hashmap to record the freq of removed elements (not really removed yet)
+    - maintain heap size variable to keep track of the real heap size (exclude the removed elements which recorded in hashmap)
 
 **focus on stored elements**
 

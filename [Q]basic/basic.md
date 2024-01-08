@@ -439,6 +439,7 @@ print(d["A"]) # 1
 d = defaultdict(lambda: [0] * 5)
 d["A"][3] = 100
 print(d) # defaultdict {'A': [0, 0, 0, 100, 0]})
+d = defaultdict(ListNode) # we can also use our cutsom class as arg
 
 # sometimes maintain a list in a dict's value is useful
 hashmap = {}

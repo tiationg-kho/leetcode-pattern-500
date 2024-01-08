@@ -2,20 +2,19 @@ from heapq import *
 class MedianFinder:
 
     def __init__(self):
-        self.maxheap_smallhalf = []
-        self.minheap_largehalf = []
+        self.smallhalf_maxheap = []
+        self.largehalf_minheap = []
 
     def addNum(self, num: int) -> None:
-        heappush(self.maxheap_smallhalf, - num)
-        heappush(self.minheap_largehalf, heappop(self.maxheap_smallhalf) * (- 1))
-
-        if len(self.minheap_largehalf) - len(self.maxheap_smallhalf) > 1:
-            heappush(self.maxheap_smallhalf, heappop(self.minheap_largehalf) * (- 1))
+        heappush(self.smallhalf_maxheap, - num)
+        heappush(self.largehalf_minheap, - heappop(self.smallhalf_maxheap))
+        if len(self.largehalf_minheap) > len(self.smallhalf_maxheap) + 1:
+            heappush(self.smallhalf_maxheap, - heappop(self.largehalf_minheap))
 
     def findMedian(self) -> float:
-        if (len(self.minheap_largehalf) + len(self.maxheap_smallhalf)) % 2 == 0:
-            return (self.maxheap_smallhalf[0] * (- 1) + self.minheap_largehalf[0]) / 2
-        return self.minheap_largehalf[0]
+        if len(self.largehalf_minheap) > len(self.smallhalf_maxheap):
+            return self.largehalf_minheap[0]
+        return (self.largehalf_minheap[0] + (- self.smallhalf_maxheap[0])) / 2
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
