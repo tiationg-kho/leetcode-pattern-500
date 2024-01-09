@@ -1,29 +1,30 @@
 from heapq import *
 class Solution:
     def eatenApples(self, apples: List[int], days: List[int]) -> int:
-        res = 0
         heap = []
+        res = 0
         for i in range(len(apples)):
-            count = apples[i]
-            expire = i + days[i]
-            if count:
-                heappush(heap, [expire, count])
-            while heap and (heap[0][0] <= i or heap[0][1] == 0):
+            while heap and heap[0][0] <= i:
                 heappop(heap)
+            if apples[i] != 0:
+                heappush(heap, [i + days[i], apples[i]])
             if heap and heap[0][1] > 0:
                 res += 1
                 heap[0][1] -= 1
+                if heap[0][1] == 0:
+                    heappop(heap)
 
-        cur_day = len(apples)
+        cur = len(apples)
         while heap:
-            expire, count = heappop(heap)
-            if expire <= cur_day:
-                continue
-            eat = min(count, expire - cur_day)
-            res += eat
-            cur_day += eat
+            while heap and heap[0][0] <= cur:
+                heappop(heap)
+            if heap:
+                end, count = heappop(heap)
+                res += min(end - cur, count)
+                cur += min(end - cur, count)
+
         return res
     
 # time O(nlogn)
 # space O(n)
-# using heap and focus on popping out
+# using heap and storing and popping out elements

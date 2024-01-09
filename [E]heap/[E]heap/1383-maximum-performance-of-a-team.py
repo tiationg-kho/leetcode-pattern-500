@@ -1,23 +1,25 @@
 from heapq import *
 class Solution:
     def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
-        eng = [(e, s) for e, s in zip(efficiency, speed)]
-        eng.sort(key = lambda x: - x[0])
+        
+        engineers = [(s, e) for s, e in zip(speed, efficiency)]
+        engineers.sort(key = lambda x: - x[1])
 
         res = 0
+        total = 0
         heap = []
-        total_speed = 0
-        for e, s in eng:
-            total_speed += s
+        for s, e in engineers:
+            total += s
             heappush(heap, s)
             if len(heap) > k:
-                total_speed -= heappop(heap)
-            res = max(res, e * total_speed)
-        return res % (10**9 + 7)
+                total -= heappop(heap)
+            res = max(res, total * e)
+
+        return res % (10**9+7)
         
 # time O(nlogn)
 # space O(n + k)
-# using heap and focus on stored elements and sort and greedy
+# using heap and storing and popping out elements and sort and greedy
 '''
 two factors in problem, need to handle ony by one
 1. we traverse every possible team effi (from high to low), and keep recording the best perf
