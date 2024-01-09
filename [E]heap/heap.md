@@ -91,20 +91,13 @@
     - use hashmap to record the freq of removed elements (not really removed yet)
     - maintain heap size variable to keep track of the real heap size (exclude the removed elements which recorded in hashmap)
 
-**focus on stored elements**
+**storing and popping out elements**
 
-- use heap to keep elements (min or max group)
-- keep store and pop out the invalid elements
-
-**focus on popping out**
-
-- use heap to get the cur min or max element
-- contains greedy algorithm’s idea
-    - we use popping out to get the most reasonable element to utilize
+- use heap to store elements (min or max group)
+- keep popping out the invalid or useful element (comparing to cur condition)
+    - contains greedy algorithm’s idea
 
 **use bfs and heap**
 
-- this is one variation of focusing on popping out
-- use bfs to find potential valid elements
+- use bfs to find potential valid elements (use heap to replace the queue)
 - use hashset to record visited elements
-- use heap to get the cur min or max element
