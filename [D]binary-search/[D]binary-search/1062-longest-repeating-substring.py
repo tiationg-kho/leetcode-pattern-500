@@ -7,14 +7,13 @@ class Solution:
             hashval_set = set()
             hashval = 0
             remove_base = (base ** (k - 1)) % mod
-            for i in range(len(s)):
+            for i, c in enumerate(s):
                 if i < k:
-                    hashval = (hashval * base + ord(s[i])) % mod
-                    if i == k - 1:
-                        hashval_set.add(hashval)
+                    hashval = (hashval * base + ord(c)) % mod
                 else:
                     hashval -= (remove_base * ord(s[i - k])) % mod
-                    hashval = (hashval * base + ord(s[i])) % mod
+                    hashval = (hashval * base + ord(c)) % mod
+                if i >= k - 1:
                     if hashval in hashval_set:
                         return True
                     hashval_set.add(hashval)

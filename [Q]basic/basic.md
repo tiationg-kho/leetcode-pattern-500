@@ -31,7 +31,13 @@
         - it will occupy memory stack
 - **time and space are interrelated**
     - should consider the current demand to decide how to implement algorithm
-    - sometimes we can use the amortized time complexity or average time complexity instead of the worst case time complexity
+    - sometimes we can also consider the amortized time complexity or average time complexity instead of only the worst case time complexity
+        - average
+            - quick sort: worst-case time complexity is O(n**2), average time complexity is O(nlogn)
+                - worst-case happens due to bad pivot choice or nearly sorted array
+        - amortized
+            - dynamic array adding element: worst-case time complexity is O(n), amortized time complexity is O(1)
+                - because when array is full, resizing takes O(n) time
 
 # **Python**
 # list
@@ -1148,12 +1154,16 @@ z = txt.isdecimal() # False
 int('-15') # -15
 chr(97)  # a
 chr(126) # ~
-ord('0')  # 48
-ord('9')  # 57
-ord('A')  # 65
-ord('Z')  # 90
-ord('a')  # 97
-ord('z')  # 122
+ord('\x00') # 0, '\x00' is null character in hexadecimal notation
+ord('\u0000') # 0, '\u0000' is null character in Unicode notation. 0000 is the hexadecimal representation of the Unicode point for the null character
+ord('0') # 48
+ord('9') # 57
+ord('A') # 65
+ord('Z') # 90
+ord('a') # 97
+ord('z') # 122
+ord('\xFF') # 255
+ord('\u00FF') # 255
 
 # pre-initialized string
 import string 
