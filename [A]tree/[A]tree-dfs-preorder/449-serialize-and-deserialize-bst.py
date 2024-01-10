@@ -11,58 +11,50 @@ class Codec:
         """Encodes a tree to a single string.
         """
         def int_to_string(val):
-            byte_array = [(val >> (i * 8)) & 0xFF for i in range(4)][::- 1]
+            byte_array = [(val >> (i * 8)) & 0xFF for i in range(4)][:: - 1]
             char_array = [chr(byte) for byte in byte_array]
             string = ''.join(char_array)
             return string
 
-        def helper(node):
+        def build(node):
             if not node:
                 return ''
             cur = int_to_string(node.val)
-            left = helper(node.left)
-            right = helper(node.right)
+            left = build(node.left)
+            right = build(node.right)
             return cur + left + right
         
-        return helper(root)
-
+        return build(root)
+        
     def deserialize(self, data: str) -> Optional[TreeNode]:
         """Decodes your encoded data to tree.
         """
-        
-        def string_to_vals(data):
+        def string_to_int(string):
             res = []
             val = 0
-            for i, c in enumerate(data):
-                if i % 4 == 0:
-                    val += ord(c) * (1 << 24)
-                elif i % 4 == 1:
-                    val += ord(c) * (1 << 16)
-                elif i % 4 == 2:
-                    val += ord(c) * (1 << 8)
-                else:
-                    val += ord(c)
+            for i, c in enumerate(string):
+                val += ord(c) << (8 * (4 - 1 - (i % 4)))
+                if i % 4 == 3:
                     res.append(val)
                     val = 0
             return res
-
-        vals = string_to_vals(data)
+        
+        vals = string_to_int(data)
         idx = 0
-        def helper(lower, upper):
+        def build(lower, upper):
             nonlocal idx
             if idx >= len(vals):
                 return None
-            val = vals[idx]
-            if val <= lower or val >= upper:
+            if vals[idx] <= lower or vals[idx] >= upper:
                 return None
+            node = TreeNode(vals[idx])
             idx += 1
-            node = TreeNode(val)
-            node.left = helper(lower, val)
-            node.right = helper(val, upper)
+            node.left = build(lower, node.val)
+            node.right = build(node.val, upper)
             return node
         
-        return helper(float('-inf'), float('inf'))
-
+        return build(float('-inf'), float('inf'))
+        
 # Your Codec object will be instantiated and called as such:
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
