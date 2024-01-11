@@ -9,7 +9,7 @@ class Solution:
     
 # time O(nL)
 # space O(1)
-# using string
+# using string and string composition
 '''
 1. notice the order of for loop
 '''
