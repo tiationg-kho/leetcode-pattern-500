@@ -12,6 +12,9 @@
     - isomorphic
         - use hashmap
         - build bijection mapping relation 
+    - strobogrammatic number
+        - a number whose numeral is rotationally symmetric
+        - eg. "69", "81018"
     - substring
         - is contiguous like subarray, not like subsequence
     - subsequence
@@ -42,10 +45,13 @@
     - find pattern match / substring in string can use Rabin Karp (rolling hash)
         - time `O(n)` or `O(n+m)`
         - space `O(n)`, due to hashset or `O(1)`, due to finding fixed hash val
+        - notice: we can use mod to avoid large number calculations
         - should consider the collision problem
             - solution 1: use 2-choice hashing
             - solution 2: when find match, check the substring really match or not. worst time could degenerate to `O(nm)`
+        
     ```python
+    # notice s length and p length must > 0
     def get_pattern_match_start_idx(s, p):
         base = 27
         hashval_set = set()
@@ -57,16 +63,15 @@
         hashval = 0
         remove_base = base ** (len(p) - 1)
         for i, c in enumerate(s):
-            if i < len(p):
-                hashval = hashval * base + ord(c)
-            else:
+            if i >= len(p):
                 hashval -= remove_base * ord(s[i - len(p)])
-                hashval = hashval * base + ord(c)
+            hashval = hashval * base + ord(c)
             if i >= len(p) - 1:
                 if hashval in hashval_set:
                     return i - (len(p) - 1)
         return - 1
 
+    # notice s length and k must > 0
     def is_length_k_substring_repeat(s, k):
         base = 27
         mod = 10**9 + 7
@@ -74,16 +79,15 @@
         hashval = 0
         remove_base = (base ** (k - 1)) % mod
         for i, c in enumerate(s):
-            if i < k:
-                hashval = (hashval * base + ord(c)) % mod
-            else:
+            if i >= k:
                 hashval -= (remove_base * ord(s[i - k])) % mod
-                hashval = (hashval * base + ord(c)) % mod
+            hashval = (hashval * base + ord(c)) % mod
             if i >= k - 1:
                 if hashval in hashval_set:
                     return True
                 hashval_set.add(hashval)
         return False
     ``` 
-- **string**
-    - make sure be familiar with syntax/methods of string
+- **string composition**
+    - consider the composition of string
+    - consider how to concat the string
