@@ -501,6 +501,7 @@ good
 
 # loop is O(n)
 # loop dict's key
+# if we want to pop key during iteration, use "for key in list(d.keys())"
 for key in d:
     print(key)
 '''
