@@ -4,64 +4,156 @@
 
 - **array**
     - contiguous in memory
-    - if array is circular
-        - concatenate two original array to simulate
-        - or use mod on idx
+    - in dynamic arrays, amortized O(1) for appending
 
 ## array pattern
 
 - **traverse**
     - most common operation in array
 - **use Boyer Moore vote algorithm**
-    - can find majority element (not strictly)
-        - need validate again if the res is not guaranteed
-    - key concepts
-        - candidates
-        - voting
-        - neutralizing
-- **use** **reverse technique**
+    - can find possible majority element(s)
+    1. first travserse (finding candidate(s))
+        1. if this element is existing candidate, then increment voting count for 
+        2. if we do not have enough candidate(s), then add new candidate 
+        3. if this element is not a candidate, then decrement each existing voting count and remove candidate(s) if needed
+    2. second traverse (verifying candidate(s))
+        1. calc the frequency of candidate(s)
+        2. filter the final res
+    - notice: the order of these steps matters
+    ```python
+    def get_top_k_majority(k):
+        cand_vote = {}
+        for num in nums:
+            if num in cand_vote:
+                cand_vote[num] += 1
+            elif len(cand_vote) < k:
+                cand_vote[num] = 1
+            else:
+                for c in list(cand_vote.keys()):
+                    cand_vote[c] -= 1
+                    if cand_vote[c] == 0:
+                        cand_vote.pop(c)
+
+        for c in cand_vote.keys():
+            cand_vote[c] = 0
+        for num in nums:
+            if num in cand_vote:
+                cand_vote[num] += 1
+        return [c for c, v in cand_vote.items() if v * (k + 1) > len(nums)]
+    ``` 
+- **use reverse technique**
+    - use two pointers
     - if we want to rotate second part of array to front
         1. reverse whole array (use two pointers)
-        2. reverse first part (original second part)
-        3. reverse second part (original first part)
-- **use array to simulate queue**
+        2. reverse new first part (original second part)
+        3. reverse new second part (original first part)
+- **use circular array**
     - use mod to get the correct idx to put val
     - notice array can also simulate hashmap for counting
-- **use cyclic sort**
+- **specific range array (cyclic sort)**
+    - array’s elements must be in fixed range (eg. 1 to n)
     - cyclic sort is time `O(n)`, space `O(1)`
-        - array’s elements must be in fixed range
-    - treat index as a hash key, building some relation between idx and val as mark
-        - utilize the property of values are limited in certain range
-    - based on mapping relation, we can
-        - keep swapping the element to correct idx/location
-        - or use negative marking to modify the val in correct idx
-        - or build a graph
-            - build idx to val edge
-                - val become new idx
-                    - keep going
-            - cause limited range, will generate at least a many to one mapping (cycle exists)
-                - like in [1, n] range, and we have n + 1 numbers
-                - multi edge go to same node
-            - use two pointers (slow and fast) approach to detect cycle (duplicate numbers)
-                - cycle’s starting point is the duplicate numbers
+    - we want to place each number at its "correct" idx
+        - utilize element-to-index mapping (involves hash's idea) to find the correct idx
+    ```python
+    '''
+    idx:
+        0, 1, 2, 3 ..., n-1
+    val:
+        1, 2, 3, 4 ..., n 
+    '''
+    ``` 
+- **specific range array (cycle detection)**
+    - array’s elements must be in fixed range (eg. 1 to n)
+    - cycle detection is time `O(n)`, space `O(1)`
+    - we want to use two pointers (slow and fast) to traverse the array in a way that mimics a linked list
+        - utilize element-to-index mapping (involves hash's idea) to find the next element
+        - build element-to-index edge, so if multi edge go to same node means cycle exists
+        - cycle starting point's idx is the duplicate number
+    ```python
+    '''
+    find duplicate
+    nums = [1, 2, 3, 1], val range is 1-3
+
+    idx 0, 1, 2, 3
+    val 1, 2, 3, 1
+
+        idx
+    slow 0 -> 1 -> 2 -> '3'
+    fast 0 ->   -> 2 ->   -> 1 ->   -> '3'
+
+       idx
+    p1  0 -> '1'
+    p2  3 -> '1'
+
+    1. (L + P ) * 2 = L + P + Q + P
+    2. L = Q
+
+           ↙ 3 ↖
+    0  →  1  →  2
+    '''
+    ```
 - **use finite state machine**
     - when there are only few states/patterns to switch/detect
+    - we will transits between these finite number of states based on inputs or conditions
 - **use difference array**
-    - can seen as reverse version of prefix technique
     - can perform range updating in `O(1)`
-- **count continuous element**
+    ```python
+    '''
+     nums = [-2, 10, 5, 7]
+    diffs = [-2, 12, -5, 2], diffs[i] = nums[i] - nums[i - 1]
+
+    if add 2 to idx:1-2 ([i, j] range)
+    diffs = [-2, 14, -5, 0], add in idx i and subtract in idx j + 1
+
+    by using a var (init 0), and keep adding diffs element, we can resotre nums
+     nums = [-2, 12, 7, 7]
+    '''
+    ``` 
+| Aspect              | Prefix Sum                               | Difference Array                               | Segment Tree                                          |
+| ------------------- | ---------------------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
+| **Primary Purpose** | range sum queries                        | range updates                                  | range queries, and range updates                      |
+| **Operation Time**  | Sum Query: O(1)                          | Update: O(1)                                   | Query: O(logC) or O(logn); Update: O(logC) or O(logn) |
+| **Reconstruction**  | get original array from diff of elements | get original array from prefix sum of elements | N/A                                                   |
+| **Use Case**        | static arrays                            | cumulative updates                             | interval-based manipulations                          |
+- **count continuous elements**
     - like 0 or 1 or - 1
     - or sometimes we need to convert the original element to 0 or 1 or - 1 for counting
 - **use Knuth shuffle**
+    - time `O(n)`, space `O(1)`
+    - can shuffle array randomly
     - traverse from end to start
-        - each round, randomly choose a element (from first element to current element )to swap with current element
+        - each round, randomly choose a element (from first element to current element ) to swap with current element
+    ```python
+    import random
+    def shuffle(nums):
+        for i in range(len(nums) - 1, - 1, - 1):
+            target_idx = random.randint(0, i)
+            nums[i], nums[target_idx] = nums[target_idx], nums[i]
+        return nums
+    ```  
 - **use reservoir sampling**
+    - time `O(n)`, space `O(1)`
+    - can randomly pick element in unknown size dataset
     - if input is too large to store, then use reservoir sampling
-    - if input is a stream which can not be preprocessed, then use reservoir sampling
-    - first element 1/1 to be res
-        - second element 1/2 to be res
-            - third element 1/3 to be res
+    - if input is a stream, then use reservoir sampling
+    - first element is 1/1 to be res
+        - second element is 1/2 to be res
+            - third element is 1/3 to be res
                 - keep going
+    ```python
+    import random
+    def sampling(nums):
+        stream = 0
+        res = None
+        for num in nums:
+            if 0 == random.randint(0, stream):
+                res = num
+            stream += 1
+        return res
+    ``` 
+- **simulation**
+    - involve mimicking or modeling the behavior of some processes
 - **use swap**
     - can achieve certain order for array
 - **maintain array's range dynamically**
@@ -70,7 +162,7 @@
         - cur visit
         - array end
 - **pre-process the array**
-    - for handling the error cases
+    - for handling the edge cases
 
 ## line sweep intro
 
