@@ -169,44 +169,59 @@
 - **line sweep**
     - we focus on the interval’s start or end
         - because that is the changing point
+        - elements can be interval based (eg. [start, end]) or event based (eg. [start, 1], [end, - 1]). interval based is more straightforward
     - can solve interval problem
     - can sort the intervals as pre-processing
         - notice the sort’s key
+        - sorting can simplify the relationship between two intervals
     - intervals’ relation
-        - overlap
-            - A meet B (depends, can seem as non overlap)
-            - A overlap B
-            - A is-finished-by B
-            - A contains B
-            - A starts B
-            - A equals B
-            - A during B
-        - non overlap
-            - A before B
+        ```python
+        '''
+        1. overlap
+        - A meets B:          AAAAA       (depends, can seem as non overlap)
+                                  BBBBB
+
+        - A overlaps B:       AAAAA
+                                BBBBB
+
+        - A starts B:         AAAAA
+                              BBBBBBBBBB
+
+        - A equals B:         AAAAA
+                              BBBBB
+
+        - A finished by B:    AAAAAAAAAA
+                                   BBBBB
+
+        - A contains B:       AAAAAAAAAA
+                                 BBBBB
+
+        2. non overlap
+        - A before B:         AAAAA 
+                                     BBBBB
+
+        '''
+        ```
 
 ## line sweep pattern
 
 - **compare two intervals each round**
-    - can use sort as pre-processing
+    - can use sort as pre-processing (for input)
         - simplify the relation types of two intervals
     - sometimes can use greedy’s idea
-        - determine the key of sort
-        - determine the current best choice
+        - to determine the key of sort
+        - to determine the current best choice (how to deal with overlapping intervals)
     - if two intervals belongs to two sequences of intervals instead of same sequence
-        - use two pointers to track them
+        - we can use two pointers to track them
+            - make sure to sort them if needed
             - use greedy’s idea to decide how to move pointer
-        - or use heap to put them into same heap and manage them as same sequence
-        - besides, notice that we can also divide single sequence to two sequences
-            - one sequence contains start times
-            - one sequence contains end times
-- **use chronological ordering**
-    - use heap to keep previous intervals’ states
-        - using heap with greedy’s idea
-        - the element/state in heap is a tuple
-            - like start time, end time, length of interval
-    - or just use variable to keep previous intervals’ states
-        - should reconstruct intervals first
-            - like give start time a positive val, and give end time a negative val
+        - we can combine two sequences into single sequence by sorting or heap
+            - inside this sequence, elements can be interval based (eg. [start, end]) or event based (eg. [start, 1], [end, - 1])
+                - notice: if we use event based element, then we do not need to compare two intervals each round. we will traverse and use an additional var to record the cur status
+- **use heap to store previous intervals’ states**
+    - can use sort as pre-processing (for input)
+    - this approach contains greedy’s idea
+        - the element/state in heap is a tuple and store info we need
 
 ## prefix sum intro
 
@@ -236,13 +251,13 @@
         - prefix sum of sth
             - this some thing usually depends on the problem, and need certain abstract transition
     - if array only contain two values, can think about modifying element
-        - like change them into 1 and - 1
+        - like change them into 1 and - 1, then we can get their freq in prefix sum
 
 ## prefix sum pattern
 
 - **use** **standard prefix sum**
     - prefix sum list’s length is n + 1 or n (depends)
-- **use hashmap to valid the gap subarray**
+- **use hashmap to validate the gap subarray**
     - combine prefix sum and hashmap can help to find out the valid subarray
     - hashmap
         - key is prefix sum or sth derived from prefix sum
@@ -345,7 +360,7 @@ two pointers opposite direction
 - **sort**
     - A **stable** sorting algorithm means that when two elements have the same value, their relative order is maintained
     - An **in-place** sorting algorithm means that the algorithm does not use additional data structure to hold temporary data
-    - Python uses Timsort, which uses merge sort for larger data and insertion sort for smaller data
+    - Python uses Timsort, which uses merge sort for larger data and insertion sort for smaller data (overall time `O(nlogn)`, space `O(n)`)
     - merge sort
         - involve divide and conquer’s idea
     
