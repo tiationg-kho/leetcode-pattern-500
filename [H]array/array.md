@@ -255,15 +255,17 @@
 
 ## prefix sum pattern
 
-- **use** **standard prefix sum**
+- **use standard prefix sum**
     - prefix sum list’s length is n + 1 or n (depends)
 - **use hashmap to validate the gap subarray**
     - combine prefix sum and hashmap can help to find out the valid subarray
-    - hashmap
+    - hashmap (depends, can also use set or even sorted dict)
         - key is prefix sum or sth derived from prefix sum
         - value can be idx or count (depends)
+        - we might need an init key-value pair to put into the hashmap
         - if we are searching a closest target instead of a fixed target
-            - then we should use SortedDict and use binary search
+            - then we should use SortedDict
+                - method eg. `bisect_left`, `peekitem`
 
 ## sliding window intro
 
@@ -275,7 +277,7 @@
     for right in range(len(nums)):
         UPDATE_STATES # due to right ptr is moving
         while INVALID:
-            UPDATE_STATES # due to left ptr is moving
+            UPDATE_STATES # due to left ptr is going to move
             left += 1
         if VALID:
             RECORD # record cur best res
@@ -286,7 +288,7 @@
         UPDATE_STATES # due to right ptr is moving
         while VALID:
             RECORD # record cur best res
-            UPDATE_STATES # due to left ptr is moving
+            UPDATE_STATES # due to left ptr is going to move
             left += 1
     ```
     
@@ -295,32 +297,25 @@
         - so we keep moving/generating window, maintaining it valid, and recording the current best result
     - left and right pointers
         - these two pointers define the window’s range (inclusive)
-    - steps
-        1. update states due to right ptr is moving
-            1. using hashmap or some variables
-        2. move left ptr to maintain valid
-            1. update states due to left ptr is moving
-                1. using hashmap or some variables
-        3. if valid
-            1. record cur best res
     - important elements
         - update states, maintain valid, record result
-            - notice these three elements can be arranged depends on the problem
+            - notice order of these three elements can be arranged depends on the problem
     - maintain valid’s tip
         - the valid factors could include
             - size
             - char’s frequency
             - unique char’s count
             - sum of the current window
-        - when we can not find the clear way to validate
-            - we should consider enumerate certain things
-                - it will help us to define how to maintain valid (when to move left ptr)
+        - when we can not find the clear way to validate (2 constraints or more)
+            - we should consider enumerate sth or let sth fixed or sort sth
+                - this means we deduct and control 1 factor
+                - notice: sorting should not apply on source array directly in sliding window pattern
 
 ## sliding window pattern
 
 - **use standard sliding window**
     - size is fixed or want to get max size of window
-- **use type II sliding window**
+- **use shrink type sliding window**
     - want to get min size of window
 
 ## two pointers same direction intro
@@ -333,10 +328,19 @@
 - **use left ptr to record**
     - left ptr can seems as a slow ptr
 - **find next permutation**
-    1. find first relative small num a in right side (if can not find a, then we are already in the largest permutation)
-    2. find first relative large num b (to that relative small num) in right side
+    1. find first relative small (left neighbor < cur element) num a in right side (if can not find a, then we are already in the largest permutation)
+    2. find first relative large num b (to that relative small num a) in right side
     3. swap a and b
     4. let second half subarray (after that swap idx (b's new idx)) become monotonic increasing (reverse them)
+    ```python
+    '''
+      val : 137531
+    step 1: num a: 3 (idx 1)
+    step 2: num b: 5 (idx 3)
+    step 3: swap: 157331
+    step 4: res: 151337
+    '''
+    ``` 
 - **traverse two sequences**
 
 ## two pointers opposite direction intro
