@@ -353,7 +353,7 @@ two pointers opposite direction
     - could use the attribute of sorted order
     - if not sorted
         - we should greedily think move which side’s ptr will be the current best choice
-        - or think which side’s ptr’s result is already the final result
+        - or consider which side’s ptr’s result is already the final result
             - record it if need, then move this side’s ptr
         - or the both side shrink together
             - sometimes can use when we want to reverse array
@@ -429,7 +429,7 @@ two pointers opposite direction
             quick_sort(0, len(nums) - 1)
             return nums
         
-    # time O(n**2), when the list is almost sorted, and the average time is O(nlogn)
+    # time O(n**2), worst-case happens due to bad pivot choice or nearly sorted array, and the average time is O(nlogn)
     # space O(n), due to recursion layers, O(logn) in average
     # using quick sort
     # unstable
