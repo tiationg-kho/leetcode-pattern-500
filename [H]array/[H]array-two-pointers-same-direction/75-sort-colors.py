@@ -18,7 +18,7 @@ class Solution:
                 
 # time O(n)
 # space O(1)
-# using array and two pointers same direction and left ptr to record
+# using array and two pointers same direction and left ptr to record and three way partitioning
 '''
 1. when swap with left ptr, cur ptr with only get 1 or 0
 2. most time is 1. And 0 is when cur ptr swap with left ptr at same idx

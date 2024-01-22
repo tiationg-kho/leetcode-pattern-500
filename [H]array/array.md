@@ -440,13 +440,13 @@ two pointers opposite direction
             def quick_select(left, right):
                 pivot_idx = random.randint(left, right)
                 pivot_val = nums[pivot_idx]
-                nums[pivot_idx], nums[right] = nums[right], nums[pivot_idx]
+                nums[right], nums[pivot_idx] = nums[pivot_idx], nums[right]
                 partition_idx = left
                 for i in range(left, right):
                     if nums[i] < pivot_val:
                         nums[i], nums[partition_idx] = nums[partition_idx], nums[i]
                         partition_idx += 1
-                nums[partition_idx], nums[right] = nums[right], nums[partition_idx]
+                nums[right], nums[partition_idx] = nums[partition_idx], nums[right]
                 return partition_idx
     
             left, right = 0, len(nums) - 1
