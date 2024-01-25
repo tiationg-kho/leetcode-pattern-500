@@ -1,22 +1,22 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        stack = []
+        num_stack = []
+        cal_stack = []
         for t in tokens:
             if t in '+-*/':
-                second_num = stack.pop()
-                first_num = stack.pop()
+                num2 = num_stack.pop()
+                num1 = num_stack.pop()
                 if t == '+':
-                    stack.append(first_num + second_num)
+                    num_stack.append(num1 + num2)
                 elif t == '-':
-                    stack.append(first_num - second_num)
+                    num_stack.append(num1 - num2)
                 elif t == '*':
-                    stack.append(first_num * second_num)
+                    num_stack.append(num1 * num2)
                 else:
-                    stack.append(int(first_num / second_num))
+                    num_stack.append(int(num1 / num2))
             else:
-                stack.append(int(t))
-
-        return stack[- 1]
+                num_stack.append(int(t))
+        return num_stack[- 1]
     
 # time O(n), due to traverse
 # space O(n), due to stack
