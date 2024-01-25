@@ -2,9 +2,9 @@ from collections import deque
 class MovingAverage:
 
     def __init__(self, size: int):
+        self.queue = deque([])
         self.size = size
         self.total = 0
-        self.queue = deque([])
 
     def next(self, val: int) -> float:
         if len(self.queue) == self.size:
@@ -19,4 +19,4 @@ class MovingAverage:
 
 # time O(1)
 # space O(n)
-# using stacka and queue and use queue to simulate
+# using stack and queue and use queue to simulate

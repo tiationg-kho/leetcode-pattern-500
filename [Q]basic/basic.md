@@ -54,7 +54,7 @@ list5 = [[] for i in range(3)] # [[], [], []]
 list6 = [[0 for c in range(2)] for r in range(3)] # [[0, 0], [0, 0], [0, 0]]
 
 # list comprehension is O(n)
-list1 = [6, 2, 8, 3 , 1]
+list1 = [6, 2, 8, 3, 1]
 newlist = [x ** 2 for x in list1] # [36, 4, 64, 9, 1]
 list2 = [1, 4, 5, 8, 9, 11, 13, 12]
 newlist = [x for x in list2 if x % 2 == 1] # [1, 5, 9, 11, 13]
@@ -1408,6 +1408,11 @@ public class Main {
         0 0 0 0 0 
         0 0 0 0 0 
         */
+
+        // convert array to ArrayList
+        String[] array = {"A", "B", "C", "D"};
+        List<String> arrayList = new ArrayList<>(Arrays.asList(array));
+        System.out.println(arrayList); // [A, B, C, D]
     }
 }
 
@@ -1451,6 +1456,37 @@ public class Main {
         System.out.println(list1); // [5, 8, 100]
         Collections.sort(list1, (a, b) -> b - a);
         System.out.println(list1); // [100, 8, 5]
+
+        // convert ArrayList to array
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("A");
+        arrayList.add("B");
+        arrayList.add("C");
+        String[] array = arrayList.toArray(new String[arrayList.size()]);
+        System.out.println(Arrays.toString(array)); // [A, B, C]
+
+        // traverse through ArrayList
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Item 1");
+        arrayList.add("Item 2");
+        arrayList.add("Item 3");
+        for (int i = 0; i < arrayList.size(); i++) {
+            String item = arrayList.get(i);
+            System.out.println("for-loop: " + item);
+        }
+        /*
+        for-loop: Item 1
+        for-loop: Item 2
+        for-loop: Item 3
+        */
+        for (String item : arrayList) {
+            System.out.println("for-each: " + item);
+        }
+        /*
+        for-each: Item 1
+        for-each: Item 2
+        for-each: Item 3
+        */
     }
 }
 ```
@@ -1495,7 +1531,7 @@ public class Main {
 
         // above ops are avg O(1) due to the possibility of hash collision
 
-        // get keys in O(1), but print them out is O(n)
+        // get keys in O(n)
         map.put("fourth", 400);
         Set<String> set = map.keySet();
         System.out.println(set); // [fourth, first]
@@ -1504,9 +1540,53 @@ public class Main {
         Collection<Integer> collection = map.values();
         System.out.println(collection); // [400, 1]
 
-        // get key-value pairs in O(1), but print them out is O(n)
+        // get key-value pairs in O(n)
         Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
         System.out.println(entrySet); // [fourth=400, first=1]
+
+        // traverse through HashMap
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("A", 100);
+        map.put("S", 500);
+        map.put("Q", 10);
+
+        for (String key : map.keySet()) {
+            System.out.println("Key: " + key);
+        }
+        /*
+        Key: A
+        Key: Q
+        Key: S
+        */
+
+        for (Integer value : map.values()) {
+            System.out.println("Value: " + value);
+        }
+        /*
+        Value: 100
+        Value: 10
+        Value: 500
+        */
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+        /*
+        Key: A, Value: 100
+        Key: Q, Value: 10
+        Key: S, Value: 500
+        */
+
+        // get default value in O(1)
+        Map<String, Integer> scores = new HashMap<>();
+        scores.put("A", 95);
+        scores.put("B", 89);
+        int aScore = scores.getOrDefault("A", 0);
+        int cScore = scores.getOrDefault("C", 0);
+        System.out.println("A's Score: " + aScore);    // A's Score: 95
+        System.out.println("C's Score: " + cScore);  // C's Score: 0
     }
 }
 ```
@@ -1779,6 +1859,10 @@ public class Main {
         long min2 = Long.MIN_VALUE;
         System.out.println(max2); // 9223372036854775807
         System.out.println(min2); // -9223372036854775808
+
+        // get min and get max
+        Math.max(1, 2); // 2
+        Math.min(4, 8); // 4
 
         // division
         int num1 = 80;

@@ -511,3 +511,4 @@ two pointers opposite direction
         - like median
 - **use merge sort**
     - involve divide and conquer’s idea
+    - during merging, we can utilize the relationship between left part elements and right part elements
