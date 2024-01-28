@@ -17,6 +17,7 @@ class Solution:
 '''
 1. notice: only works for positive elements
 2. if num can be negative then use monotonic queue and prefix sum and sliding window
+3. think about [20, -30, 20, 10] and 30, correct res should be 2
 '''
 
 class Solution:
@@ -48,6 +49,7 @@ class Solution:
 '''
 1. notice: only works for positive elements
 2. if num can be negative then use monotonic queue and prefix sum and sliding window
+3. think about [-10, -10, -10, 20] and 20, correct res should be 1
 '''
 
 class Solution:

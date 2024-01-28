@@ -12,7 +12,7 @@
         - when inserting an item, we set the value at the pointer to the item and increment the pointer by 1
         - when removing an item, we decrease the pointer by 1
     - tips
-        - compare cur element with stack[- 1] element then decide next move accordingly
+        - compare cur element with stack[- 1] element then decide next steps accordingly
     
     ```python
     # init the stack
@@ -77,22 +77,29 @@
 - **use queue to simulate**
     - can simulate data stream
 - **use stack to store the last states**
-    - notice when to store and when to check to last states
+    - notice when to store/peek/modify last states
 - **implement stack/queue**
     - queue by stack
         - two stacks
             - use reverse technique to place elements
+            - enqueue: push elements into stack1
+            - dequeue: when needed, reverse the order by moving all elements from stack1 to stack2, so the first/oldest element enqueued is now on top of stack2 and will be popped off
+            - push is `O(1)`, pop is `amortized O(1)`
     - stack by queue
         - only one queue
-            - place old elements from new elements left side to new element’s right side
-    - min stack
+            - visualize queue as circular, move all older elements (ahead of new added element) to new added element's tail, ensuring the new added element is always at the front of queue to simulate the stack
+            - push is `O(n)`, pop is `O(1)`
+    - min stack (push, pop, peek, get_min)
         - only one stack
-            - the stack must store the diff between cur val and min_num
-    - max stack
+            - the stack must store the diff val between cur val and cur min_num
+            - push is `O(1)`, pop is `O(1)`, peek is `O(1)`, get_min is `O(1)`
+    - max stack (push, pop, peek, get_max, pop_max)
         - stack and heap and hashmap
             - assist with lazy removal technique
-    - max freq stack
+            - push is `O(logn)`, pop is `amortized O(logn)`, peek is `O(1)`, get_max is `O(1)`, pop_max is `amortized O(logn)`
+    - max freq stack (push, pop_mostfreq)
         - stack and hashmap
+            - use val as key, to count the frequency
             - use freq as key, to access the stack of that freq
 - **use variables to simulate stack**
     - when the types of elements in stack are limited
@@ -102,26 +109,24 @@
 - **use stack to simulate**
     - can simulate text editor
         - user two stack or dll
-    - can simulate iterator
+    - can simulate nested list iterator
 - **use monotonic queue and sliding window**
-    - if we want to maintain the min/max value and there is a constraint about the length of valid subarray(sliding window)
+    - if we want to maintain the min/max value and there is a constraint/consideration about the length of valid subarray (sliding window)
+        - eg. get every [i, i + k - 1] subarray's min/max value
+            - naive way might take O(nk)
+            - use monotonic queue only spend O(n)
+                - the min/max will be located at queue' head
     - notice
         - when to pop element at queue’s end
         - when to add element at queue’s end
         - when the element at queue’s start is expired
-    - steps (can reorder or combine)
-        1. update states due to right ptr is moving
-            - using monotonic queue
-        2. move left ptr to maintain valid
-            - update states due to left ptr is moving
-                - using monotonic queue
-        3. if valid
-            - record cur best res
+        - when to record the cur best res
+        - (order of these steps is not guaranteed)
 - **use monotonic stack (consider one or two side’s relationship)**
     - notice
-        - when to pop element at stack end
+        - when to pop element at stack's end
         - when to add element at stack’s end
-    - monotonic increasing or decreasing array will be initialized
+    - monotonic increasing or decreasing array will be generated
     - there’s two type of this technique
         - consider one side’s relationship
         - consider two side’s relationship
