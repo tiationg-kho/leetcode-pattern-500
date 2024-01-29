@@ -8,17 +8,13 @@ Pattern500 is meticulously designed to facilitate your swift adaptation to diver
 
 Pattern500 is inspired by Blind 75 and Grind 75's classic problem selection. Pattern500 offers 500 Python solutions for LeetCode, 17 notes on essential concepts related to data structures and algorithms, and multiple patterns for solving LeetCode problems. Most importantly, each solution provides analysis of which pattern to be used and the time / space complexity. This comprehensive resource can help you improve your Python skills, deepen your understanding of fundamental DSA topics, and prepare for SDE interviews.
 
+**Mind map for all patterns in Pattern500**
+
+Check our [mind map](https://www.figma.com/file/0lJynRs6MqFfRXaGtynbeM/tiationg-kho%2Fleetcode-pattern-500?type=whiteboard&node-id=0%3A1&t=vPJxq5ivJdWjUOTH-1) in Figma.
+
 **Suggestions & Questions**
 
-Feel free to raise issues. Will try my best to resolve them to improve this repo.
-
-**Mind map for all patterns**
-
-[Mind map for all patterns in Figma](https://www.figma.com/file/0lJynRs6MqFfRXaGtynbeM/tiationg-kho%2Fleetcode-pattern-500?type=whiteboard&node-id=0%3A1&t=vPJxq5ivJdWjUOTH-1)
-
-**Browser extension recommendation**
-
-Make sure to try this [leetcode-default-code-resumer](https://github.com/tiationg-kho/leetcode-default-code-resumer) which can help you resume default code in LeetCode problem page by simple shortcut.
+Feel free to raise issues.
 
 ## Pattern500
 
