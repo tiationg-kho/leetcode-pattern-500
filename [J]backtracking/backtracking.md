@@ -7,7 +7,7 @@
     - making decisions
         - each round we got multi choices (must pick one)
         - each round we choose sth or not choose
-    - notice elements are duplicate or not
+    - notice elements are duplicate or unique
         - if so, we need to take care of pruning
     - notice elements can be chosen repeatedly or not
         - if not, we need to maintain a memo
@@ -15,18 +15,16 @@
 
 ```python
 
-def backtrack(res, path, count, memo, index/node):
-    if BOUND_REACHED:	
-        return
-
-    if GOAL_REACHED:
-        res.append(COPIED_PATH)
+def backtrack(res, path, count, visited, index/node):
+    if BOUND_REACHED:
+        if GOAL_REACHED:
+            RECORD_RESULT
         return
 
     for CHOCIE in CHOICES:
         if CHOICE is VALID:
             MAKE_CHOICE
-            backtrack(res, path, count, memo, index/node)
+            backtrack(res, path, count, visited, index/node)
             UNDO_CHOICE
 ```
 

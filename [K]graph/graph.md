@@ -2,26 +2,24 @@
 
 ## intro
 
-- A graph is most commonly stored as a hashmap/list of adjacency lists/sets: for each vertex, store a list of its neighbors
+- A graph is most commonly stored as a hashmap/list of adjacency lists/sets: for each vertex, store a list/set of its neighbors
     - how to build graph is important
     - often use
         - elements inside set can be tuples
-        
         ```python
         graph = defaultdict(set)
         ```
-        
-    - tree is a special graph with properties that
+    - notice: tree is a special graph with properties that
         - connected
         - acyclic
         - non-direction edges
-        - one path/edge between any two vertices/node
+        - one path between any two vertices/nodes
 
 ## graph dfs pattern
 
 - DFS
     - time `O(|V| + |E|)`
-    - space `O(|V| + |E|)` for visited hashset, and `O(|V|)` for recursion stack
+    - space `O(|V|)` for visited hashset, and recursion stack
     - DFS is better at
         - finding nodes far away from the root
 
@@ -29,7 +27,7 @@
 
 - BFS
     - time `O(|V| + |E|)`
-    - space `O(|V| + |E|)` for visited hashset, and `O(|V|)` for queue
+    - space `O(|V|)` for visited hashset, and queue
     - tips
         - shortest distance of a to b is equal to the distance of b to a
         - sometimes can use topological sort’s idea

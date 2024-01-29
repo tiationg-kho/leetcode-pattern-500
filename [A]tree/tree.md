@@ -8,7 +8,7 @@
     - connected
     - acyclic
     - non-direction edges
-    - one path/edge between any two vertices/node
+    - one path between any two vertices/nodes
 - important tree concepts
     - traversal of the tree
     - depth/height of tree

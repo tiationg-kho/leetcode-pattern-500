@@ -111,7 +111,7 @@
         - user two stack or dll
     - can simulate nested list iterator
 - **use monotonic queue and sliding window**
-    - if we want to maintain the min/max value and there is a constraint/consideration about the length of valid subarray (sliding window)
+    - if we want to get the min/max value for each subarray, and there is a constraint/consideration about subarray's length (sliding window)
         - eg. get every [i, i + k - 1] subarray's min/max value
             - naive way might take O(nk)
             - use monotonic queue only spend O(n)
@@ -123,6 +123,8 @@
         - when to record the cur best res
         - (order of these steps is not guaranteed)
 - **use monotonic stack (consider one or two side’s relationship)**
+    - if we want to get first relative smaller/larger and left/right neighbors for each element
+    - if we want to get smallest/largest element in every subarray
     - notice
         - when to pop element at stack's end
         - when to add element at stack’s end
@@ -130,8 +132,5 @@
     - there’s two type of this technique
         - consider one side’s relationship
         - consider two side’s relationship
-    - can find out the left and/or right bound for each element in some condition
-        - finding the left and/or right relative smaller/larger elements for each element
-        - finding the smallest/largest element in every subarray
     - can use sentinel element at left bound or/and right bound
         - help us to handle edge case
