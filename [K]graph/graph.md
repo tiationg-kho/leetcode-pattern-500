@@ -19,28 +19,73 @@
 
 - DFS
     - time `O(|V| + |E|)`
-    - space `O(|V|)` for visited hashset, and recursion stack
+    - space `O(|V|)` for visited hashset, and recursion stack (not counting building graph)
     - DFS is better at
-        - finding nodes far away from the root
+        - searching for long paths
+        - memorizing res for long paths
+        - detecting cycles
+    ```python
+    # dfs
+
+    graph = defaultdict(set)
+    for p, q in edges:
+        graph[p].add(q)
+
+    visited = set()
+    
+    def dfs(node):
+        visited.add(node)
+        print('V:', node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                dfs(neighbor)
+
+    dfs(start)
+    ``` 
 
 ## graph bfs pattern
 
 - BFS
     - time `O(|V| + |E|)`
-    - space `O(|V|)` for visited hashset, and queue
+    - space `O(|V|)` for visited hashset, and queue (not counting building graph)
     - tips
         - shortest distance of a to b is equal to the distance of b to a
         - sometimes can use topological sort’s idea
         - we can use hashmap or nested list or variable to help us to record some res
         - queue
-            - single source or multi sources
-            - can put tuple as element for more info
+            - start with single source or multi sources
+            - can put tuple as element to include more info
             - can implement bfs queue by hashset sometimes
+                - eg. when perform bfs on string (modifying char) might generate duplicate new string
         - visited
-            - use hashset or hashmap
+            - use hashset
     - BFS is better at
         - finding the shortest distance between two vertices
-        - graph of unknown size
+        - searching in graph of unknown size
+        - creating a topological sort of a DAG (kahn algorithm)
+    ```python
+    # bfs
+
+    graph = defaultdict(set)
+    for p, q in edges:
+        graph[p].add(q)
+
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+
+    while queue:
+        node = queue.popleft()
+        print('V:', node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+    ```
+    - patterns
+        - bfs with single source
+        - bfs with multiple sources
+        - bfs with hashset as queue
 
 ## graph union find pattern
 
