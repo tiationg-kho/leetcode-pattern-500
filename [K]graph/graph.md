@@ -100,7 +100,6 @@
         - special ops
             - maintain the size of each components
             - give each component weight to represent the relation between itself to it’s parent
-            - counting the number of components with val (outside the uf)
 
 ```python
 class UnionFind:
@@ -138,13 +137,13 @@ class UnionFind:
     def get_count(self):
         return self.count
 
-# time near O(1) for find, union if path compression and union by rank
+# time near O(1) for find/union if path compression and union by rank
 # space O(V), due to building uf
 '''
 the logic of path compression is keep checking the cur node equal to its parent or not
 if yes, found the right parent, else change its parent to orginal parent's parent
 and let this new parent become the cur node
-then back to checking
+then keep checking
 (every round, will let cur node become at same layer with its original parent)
 '''
 ```
@@ -153,44 +152,48 @@ then back to checking
 
 - ****Kahn****
     - Topological sort
-    - A **Directed Acyclic Graph** is a linear ordering of its vertices such that for every directed edge *uv* from vertex *u* to vertex *v*, *u* comes before *v* in the ordering
+    - A **Directed Acyclic Graph** is a linear ordering of its vertices such that for every directed edge *pq* from vertex *p* to vertex *q*, *p* comes before *q* in the ordering
     - ****Kahn's Algorithm (like bfs)****
         1. building graph if need
         2. count every node’s in-degree
         3. put node whose in-degree is 0 inside queue
         4. pop out node and add to res list, and minus its neighbor node’s in-degree by 1
         5. if neighbor node’s in-degree is 0 put inside queue
-        6. check length of res list equal to number of nodes or not (same as exist cycle in graph or not)
+        6. check length of res list equal to number of nodes or not (which is detecting acyclic or not)
+        7. res list is a DAG when valid
+    - when to use
+        - determining the order in which elements should be placed to adhere to dependency constraints
 - time `O(|V| + |E|)`
 - space `O(|V| + |E|)`, if building graph
 
 ```python
 from collections import deque
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = {i: [] for i in range(numCourses)}
-        indegrees = {i: 0 for i in range(numCourses)}
-        for child, parent in prerequisites:
-            graph[parent].append(child)
-            indegrees[child] += 1
+def getDAG(n, edges):
+    graph = [[] for _ in range(n)]
+    indegrees = [0 for _ in range(n)]
+    for p, q in edges:
+        graph[p].append(q)
+        indegrees[q] += 1
 
-        queue = deque()
-        for node, indegree in indegrees.items():
-            if indegree == 0:
-                queue.append(node)
-        res = []
-        while queue:
-            node = queue.popleft()
-            res.append(node)
-            for child in graph[node]:
-                indegrees[child] -= 1
-                if indegrees[child] == 0:
-                    queue.append(child)
-        return len(res) == numCourses
+    queue = deque([])
+    for i, indegree in enumerate(indegrees):
+        if indegree == 0:
+            queue.append(i)
     
+    res = []
+    while queue:
+        node = queue.popleft()
+        res.append(node)
+        for neighbor in graph[node]:
+            indegrees[neighbor] -= 1
+            if indegrees[neighbor] == 0:
+                queue.append(neighbor)
+                
+    return res if len(res) == n else []
+
 # time O(V+E)
 # space O(V+E), due to building graph
-# using topological sort
+# using graph and kahn and topological sort
 ```
 
 ## graph dijkstra pattern
@@ -534,10 +537,11 @@ def hierholzer(n, edges):
 
 - Matrix
     - tips
-        - hashset
-        - swap
-        - additional sign variables
-            - also use first row and first col to store signs
+        - hashset for recording visited or not
+        - cur ptr moving direction
+        - swap based on certain line across the matrix
+        - additional sign variables for storing
+        - or use first row and first col to store sth
     - elements
         - row
         - col
