@@ -33,8 +33,10 @@
 ## pattern
 
 - 2D
+    - use dp[i][j]
     - use a 2D array for memo
 - knapsack
+    - use dp[i]
     - dp table's size is the volume of the knapsack, and dp[i] is the value of size i knapsack
     - 0-1 knapsack
         - one item can only be selected once

@@ -139,6 +139,7 @@ class UnionFind:
 
 # time near O(1) for find/union if path compression and union by rank
 # space O(V), due to building uf
+# using graph and union find
 '''
 the logic of path compression is keep checking the cur node equal to its parent or not
 if yes, found the right parent, else change its parent to orginal parent's parent
@@ -234,7 +235,7 @@ def dijkstra(edges, V, src):
 
 # time O(V + E + ElogE), ElogE -> Elog(V**2) -> ElogV
 # space O(V+E)
-# using dijkstra
+# using graph and dijkstra
 '''
 1. build graph
 2. init node_dist dict/array
@@ -281,7 +282,7 @@ def bellman_ford(src, dst, edges, V):
 
 # time O(VE)
 # space O(V)
-# using bellman ford
+# using graph and bellman ford
 '''
 1. build graph
 2. init node_dist dict/array
@@ -327,7 +328,7 @@ def floyd_warshall(edges, V):
 
 # time O(V**3)
 # space O(V**2)
-# using floyd warshall
+# using graph and floyd warshall
 '''
 1. init distance's dp table (every dist is float('inf'))
 2. put every edges weight inside table (u to v)
@@ -369,7 +370,7 @@ def kruskal(n, edges):
 
 # time O(ElogE)
 # space O(E + V)
-# using kruskal and union find
+# using graph and kruskal and union find
 '''
 1. sort edges
 2. init union find for all nodes
@@ -445,31 +446,34 @@ class Graph:
 
 # time O(V + E)
 # space O(V)
-# using tarjan
+# using graph and tarjan
 ```
 
 ## graph hierholzer pattern
 
 - **Hierholzer**
-    - all non zero degree nodes need to be in same connected component
+    - can find an Eulerian path or circuit in a connected graph
+        - Eulerian path is a path that visits every edge of a graph exactly once
+        - Eulerian circuit is an Eulerian path that starts and ends on the same node
 
-|                  | Eulerian Circuit                                                                   | Eulerian Path                                                                                                                                                    |
-| ---------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Undirected Graph | even degree for every vertex (can start and end at any same node)                  | even degree for every vertex, or odd degree for two vertices (will be start and end nodes) and rest is even degree                                               |
-| Directed Graph   | equal indegree and outdegree for every vertex (can start and end at any same node) | equal indegree and outdegree for every vertex, or one vertex (out == in + 1) (start node) and one vertex(in == out + 1) (end node) and rest has equal(in == out) |
+|                  | Eulerian Circuit                              | Eulerian Path                                                                                                                                                     |
+| ---------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Undirected Graph | **even** degree for every vertex              | **even** degree for every vertex. or **odd** degree for two vertices (will be start and end nodes) and rest is **even** degree                                    |
+| Directed Graph   | equal indegree and outdegree for every vertex | equal indegree and outdegree for every vertex. or one vertex (out == in + 1) (start node) and one vertex(in == out + 1) (end node) and rest has equal (in == out) |
 
 ```python
 '''
-1. build graph, and count all nodes' in and out degree, 
-and check eulerian path exist or not
+1. build graph, and count all nodes' in/out degree
 
-2. find start node, and perform modified dfs
+2. check eulerian path exist or not
 
-3. once node is stuck (no unvisited outgoing edge), 
-add node to stack and backtrack
+3. find start node, and perform modified dfs (which will delete edge when visiting)
 
-4. when backtracking, if node has unvisited outgoing edge, 
-call dfs
+    1. in dfs, if node has unvisited outgoing edge, call another dfs
+    
+    2. once node is stuck (no unvisited outgoing edge), add node to stack
+
+4. start node is the first node pop out from stack
 '''
 from collections import defaultdict
 def hierholzer(n, edges):
@@ -530,7 +534,7 @@ def hierholzer(n, edges):
 
 # time O(V + E)
 # space O(V + E)
-# using hierholzer
+# using graph and hierholzer
 ```
 
 ## graph matrix pattern
@@ -541,7 +545,7 @@ def hierholzer(n, edges):
         - cur ptr moving direction
         - swap based on certain line across the matrix
         - additional sign variables for storing
-        - or use first row and first col to store sth
+        - use first row and first col to store sign
     - elements
         - row
         - col
