@@ -40,7 +40,7 @@ class Solution:
     
 # time O(k**n)
 # space O(k**n)
-# using graph and hierholzer
+# using graph and hierholzer and eulerian path
 '''
 1. build graph: if n == 3, then 010 can create node 01 and node 10 (and connect them)
 '''
