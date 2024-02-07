@@ -64,6 +64,7 @@
     ```
 - linear sequence
     - use dp[i]
+    - or use some variable to record previous states to replace using the whole dp table
 - double sequence
     - use dp[i][j]
 - interval (start from one interval)

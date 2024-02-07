@@ -19,8 +19,8 @@ class Solution:
             for neighbor, w in graph[node]:
                 cur = prev + w
                 if cur < dist[neighbor]:
-                    dist[neighbor] = cur
                     heappush(heap, (cur, neighbor))
+                    dist[neighbor] = cur
         return max(dist) if max(dist) != float('inf') else - 1
 
 # time O(V + E + ElogE), ElogE -> Elog(V**2) -> ElogV
