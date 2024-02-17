@@ -50,15 +50,16 @@
     - space `O(|V|)` for visited hashset, and queue (not counting building graph)
     - tips
         - shortest distance of a to b is equal to the distance of b to a
-        - sometimes can use topological sort’s idea
         - we can use hashmap or nested list or variable to help us to record some res
         - queue
             - start with single source or multi sources
             - can put tuple as element to include more info
             - can implement bfs queue by hashset sometimes
                 - eg. when perform bfs on string (modifying char) might generate duplicate new string
+            - can implement bfs queue by heap sometimes
         - visited
             - use hashset
+        - sometimes can use topological sort’s idea
     - BFS is better at
         - finding the shortest distance between two vertices
         - searching in graph of unknown size
