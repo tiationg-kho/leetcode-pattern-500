@@ -33,11 +33,12 @@
 ## pattern
 
 - 2D
-    - use dp[i][j]
+    - use `dp[i][j]`
+    - cur states comes from previous states which record in 2D dp table
     - use a 2D array for memo
 - knapsack
-    - use dp[i]
-    - dp table's size is the volume of the knapsack, and dp[i] is the value of size i knapsack
+    - use `dp[i]`
+    - dp table's size is the volume of the knapsack, and `dp[i]` is the value of size i knapsack
     - 0-1 knapsack
         - one item can only be selected once
     ```python
@@ -63,13 +64,21 @@
         for num in nums:
     ```
 - linear sequence
-    - use dp[i]
+    - use `dp[i]`
+    - cur states comes from previous states which record in dp table
     - or use some variable to record previous states to replace using the whole dp table
+- LIS 
+    - use `dp[i]`
+    - LIS (longest increasing subsequence) problem
+    - `O(n**2)` approach (linear sequence)
+        - `dp[i]` means the length of LIS which ends in `i`
+    - `O(nlogn)` approach (patience sort and greedy and binary search)
+        - `dp[i]` means the smallest last num when subseq's length is `i+1`
 - double sequence
-    - use dp[i][j]
+    - use `dp[i][j]`
 - interval (start from one interval)
-    - use dp[i][k]
+    - use `dp[i][k]`
 - interval (start from short interval)
-    - use dp[i][j]
+    - use `dp[i][j]`
 
 
