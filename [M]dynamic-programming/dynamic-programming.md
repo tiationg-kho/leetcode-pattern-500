@@ -76,6 +76,8 @@
         - `dp[i]` means the smallest last num when subseq's length is `i+1`
 - double sequence
     - use `dp[i][j]`
+    - can solve LCS (longest common subsequence) problem
+        - eg. `dp[i][j]` means the length of LCS in `s[:i]` and `t[:j]`
 - interval (start from one interval)
     - use `dp[i][k]`
 - interval (start from short interval)
