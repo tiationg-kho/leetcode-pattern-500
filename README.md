@@ -6,7 +6,7 @@ Pattern 500 is meticulously designed to facilitate your swift adaptation to dive
 
 **What is Pattern 500**
 
-Pattern 500 is inspired by Blind 75 and Grind 75's classic problem selection. Pattern500 offers 500 Python solutions for LeetCode problems, 17 notes on essential concepts related to data structures and algorithms, and 130 patterns for solving LeetCode problems. Most importantly, each solution provides analysis of which pattern to be used and the time/space complexity. This comprehensive resource can help you improve your coding skills, deepen your understanding of fundamental DSA topics, and prepare for SDE interviews.
+Pattern 500 is inspired by Blind 75 and Grind 75's classic problem selection. Pattern 500 offers 500 Python solutions for LeetCode problems, 17 notes on essential concepts related to data structures and algorithms, and 130 patterns for solving LeetCode problems. Most importantly, each solution provides analysis of which pattern to be used and the time/space complexity. This comprehensive resource can help you improve your coding skills, deepen your understanding of fundamental DSA topics, and prepare for SDE interviews.
 
 **Mind map for all 130 patterns in Pattern 500**
 
