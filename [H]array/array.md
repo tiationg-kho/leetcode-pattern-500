@@ -110,12 +110,12 @@
      nums = [-2, 12, 7, 7]
     '''
     ``` 
-| Aspect              | Prefix Sum                               | Difference Array                               | Segment Tree                                          |
-| ------------------- | ---------------------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
-| **Primary Purpose** | range sum queries                        | range updates                                  | range queries, and range updates                      |
-| **Operation Time**  | Sum Query: O(1)                          | Update: O(1)                                   | Query: O(logC) or O(logn); Update: O(logC) or O(logn) |
-| **Reconstruction**  | get original array from diff of elements | get original array from prefix sum of elements | N/A                                                   |
-| **Use Case**        | static arrays                            | cumulative updates                             | interval-based manipulations                          |
+| Aspect              | Prefix Sum                               | Difference Array                               | Segment Tree                                                  |
+| ------------------- | ---------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------- |
+| **Primary Purpose** | range sum queries                        | range updates                                  | range queries, and range updates                              |
+| **Operation Time**  | Sum Query: `O(1)`                        | Update: `O(1)`                                 | Query: `O(logC)` or `O(logn)`; Update: `O(logC)` or `O(logn)` |
+| **Reconstruction**  | get original array from diff of elements | get original array from prefix sum of elements | N/A                                                           |
+| **Use Case**        | static arrays                            | cumulative updates                             | interval-based manipulations                                  |
 - **count continuous elements**
     - like 0 or 1 or - 1
     - or sometimes we need to convert the original element to 0 or 1 or - 1 for counting

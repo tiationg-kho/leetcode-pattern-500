@@ -16,7 +16,7 @@
         - merge sort
             - so we use divide and conquer not dp to solve merge sort
     - dp vs greedy
-        -  in dp, we solve overall problem by combining the solutions to subproblems
+        -  in dp, we solve overall problem by combining the solutions about subproblems
         -  in greedy, we make a series of localized optimal choices without considering the overall problem
     - two approaches of dp
         - top-down approach (memoization)
