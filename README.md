@@ -1,22 +1,22 @@
-# Pattern500
+# Pattern 500
 
 If you often find yourself grappling with how to tackle LeetCode problems, our repo is here to assist you!
 
-Pattern500 is meticulously designed to facilitate your swift adaptation to diverse problem types and their numerous variations by discerning recurring patterns within these problems.
+Pattern 500 is meticulously designed to facilitate your swift adaptation to diverse problem types and their numerous variations by discerning recurring patterns within these problems.
 
-**What is Pattern500**
+**What is Pattern 500**
 
-Pattern500 is inspired by Blind 75 and Grind 75's classic problem selection. Pattern500 offers 500 Python solutions for LeetCode, 17 notes on essential concepts related to data structures and algorithms, and multiple patterns for solving LeetCode problems. Most importantly, each solution provides analysis of which pattern to be used and the time / space complexity. This comprehensive resource can help you improve your Python skills, deepen your understanding of fundamental DSA topics, and prepare for SDE interviews.
+Pattern 500 is inspired by Blind 75 and Grind 75's classic problem selection. Pattern500 offers 500 Python solutions for LeetCode problems, 17 notes on essential concepts related to data structures and algorithms, and 130 patterns for solving LeetCode problems. Most importantly, each solution provides analysis of which pattern to be used and the time/space complexity. This comprehensive resource can help you improve your coding skills, deepen your understanding of fundamental DSA topics, and prepare for SDE interviews.
 
-**Mind map for all patterns in Pattern500**
+**Mind map for all 130 patterns in Pattern 500**
 
 Check our [mind map](https://www.figma.com/file/0lJynRs6MqFfRXaGtynbeM/github.com%2Ftiationg-kho%2Fleetcode-pattern-500?type=whiteboard&node-id=0%3A1&t=JA0J2sWJSiWC7amY-1) in Figma.
 
 **Suggestions & Questions**
 
-Feel free to raise issues.
+Feel free to raise issues or post in discussions.
 
-## Pattern500
+## Pattern 500
 
 | Num | Grind 75 | Name                                                                                                                                                                                            | Topic                                    | Pattern                                                | Solution                                                                                                                             |
 | --- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
