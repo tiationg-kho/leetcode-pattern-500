@@ -1312,71 +1312,93 @@ outer()
 ```
 
 # **Java**
-# list
-```Java
-// Array and ArrayList
 
-import java.util.*;
+# Array
+```Java
+package ArraySyntax;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // init
-        int[] arr1 = new int[5];
-        long[] arr2 = new long[5];
-        char[] arr3 = new char[5];
-        int[] arr4 = {9, 3, 2, 100, 4};
+        // Array
 
-        System.out.println(Arrays.toString(arr1)); // [0, 0, 0, 0, 0]
-        System.out.println(Arrays.toString(arr2)); // [0, 0, 0, 0, 0]
-        System.out.println(Arrays.toString(arr3)); // [, , , , ]
-        System.out.println(arr3[0] == '\u0000'); // true
-        System.out.println(Arrays.toString(arr4)); // [9, 3, 2, 100, 4]
+        // Array init in O(n)
+        int[] intArr = new int[5];
+        System.out.println(Arrays.toString(intArr)); // [0, 0, 0, 0, 0]
 
-        // update in O(1)
-        arr1[2] = 100;
-        System.out.println(Arrays.toString(arr1)); // [0, 0, 100, 0, 0]
+        long[] longArr = new long[5];
+        System.out.println(Arrays.toString(longArr)); // [0, 0, 0, 0, 0]
 
-        // get in O(1)
-        int ele = arr1[2];
+        char[] charArr = new char[5];
+        System.out.println(Arrays.toString(charArr)); // [, , , , ]
+        System.out.println(charArr[0] == '\u0000'); // true
+
+        int[] intArr2 = {9, 3, 2, 100, 4};
+        System.out.println(Arrays.toString(intArr2)); // [9, 3, 2, 100, 4]
+        System.out.println("-----");
+
+        // Array set in O(1)
+        intArr[2] = 100;
+        System.out.println(Arrays.toString(intArr)); // [0, 0, 100, 0, 0]
+        System.out.println("-----");
+
+        // Array get in O(1)
+        int ele = intArr[2];
         System.out.println(ele); // 100
+        System.out.println("-----");
 
-        // size in O(1)
-        int size = arr1.length;
+        // Array size in O(1)
+        int size = intArr.length;
         System.out.println(size); // 5
+        System.out.println("-----");
 
-        // fill in O(n)
-        Arrays.fill(arr1, 9);
-        System.out.println(Arrays.toString(arr1)); // [9, 9, 9, 9, 9]
+        // Array fill in O(n)
+        Arrays.fill(intArr, 9);
+        System.out.println(Arrays.toString(intArr)); // [9, 9, 9, 9, 9]
+        System.out.println("-----");
 
-        // loop in O(n)
-        for (int i = 0; i < arr4.length; i++) {
-            System.out.print(i + ": " + arr4[i] + ", "); 
+        // Array traverse in O(n)
+        for (int i = 0; i < intArr2.length; i++) {
+            System.out.print(i + ": " + intArr2[i] + ", ");
         }
         System.out.println(); // 0: 9, 1: 3, 2: 2, 3: 100, 4: 4,
 
-        for (int num: arr4) {
-            System.out.print(num + ", "); 
+        for (int num: intArr2) {
+            System.out.print(num + ", ");
         }
-        System.out.println(); // 9, 3, 2, 100, 4, 
+        System.out.println(); // 9, 3, 2, 100, 4,
+        System.out.println("-----");
 
-        // sort in O(nlogn)
-        Arrays.sort(arr4);
-        System.out.println(Arrays.toString(arr4)); // [2, 3, 4, 9, 100]
+        // Array sort in O(nlogn)
+        Arrays.sort(intArr2);
+        System.out.println(Arrays.toString(intArr2)); // [2, 3, 4, 9, 100]
 
-        String[] arr5 = {"a", "b", "c", "d", "e"};
-        Arrays.sort(arr5, Comparator.reverseOrder());
-        System.out.println(Arrays.toString(arr5)); // [e, d, c, b, a]
+        String[] stringArr = {"a", "b", "c", "d", "e"};
+        Arrays.sort(stringArr, Comparator.reverseOrder()); // Comparator do not support primitive types
+        System.out.println(Arrays.toString(stringArr)); // [e, d, c, b, a]
 
-        String[] arr6 = {"banana", "cucumber", "apple"};
+        String[] stringArr2 = {"banana", "cucumber", "apple"};
+        Arrays.sort(stringArr2, (a, b) -> a.length() - b.length());
+        System.out.println(Arrays.toString(stringArr2)); // [apple, banana, cucumber]
+        Arrays.sort(stringArr2, (a, b) -> b.length() - a.length());
+        System.out.println(Arrays.toString(stringArr2)); // [cucumber, banana, apple]
+        System.out.println("-----");
 
-        Arrays.sort(arr6, (a, b) -> a.length() - b.length());
-        System.out.println(Arrays.toString(arr6)); // [apple, banana, cucumber]
-        Arrays.sort(arr6, (a, b) -> b.length() - a.length());
-        System.out.println(Arrays.toString(arr6)); // [cucumber, banana, apple]
+        // Array reverse in O(n)
+        int[] revIntArr2 = IntStream.range(0, intArr2.length)
+                                    .map(i -> intArr2[intArr2.length - 1 - i])
+                                    .toArray();
+        System.out.println(Arrays.toString(revIntArr2)); // [100, 9, 4, 3, 2]
+        System.out.println("-----");
 
-        // 2D array
+        // Array 2D in O(RC)
         int[][] matrix1 = {
             {1, 2, 3},
             {4, 5, 6},
@@ -1403,665 +1425,1174 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println("-----");
         /*
         0 0 0 0 0 
         0 0 0 0 0 
         0 0 0 0 0 
         */
 
-        // convert array to ArrayList
-        String[] array = {"A", "B", "C", "D"};
-        List<String> arrayList = new ArrayList<>(Arrays.asList(array));
+        // Array convert to ArrayList in O(n)
+        String[] stringArr3 = {"A", "B", "C", "D"};
+        List<String> arrayList = new ArrayList<>(Arrays.asList(stringArr3));
         System.out.println(arrayList); // [A, B, C, D]
+        System.out.println("-----");
+
+        // Array copyOf in O(n)
+        String[] stringArr4 = {"H", "A", "L", "I"};
+        String[] stringArr4Copy = Arrays.copyOf(stringArr4, stringArr4.length);
+        System.out.println(Arrays.toString(stringArr4Copy)); // [H, A, L, I]
+        System.out.println(stringArr4 == stringArr4Copy); // false
+        System.out.println(Arrays.equals(stringArr4, stringArr4Copy)); // true
+
+        String[] stringArr4Copy2 = Arrays.copyOf(stringArr4, 2);
+        System.out.println(Arrays.toString(stringArr4Copy2)); // [H, A]
+        System.out.println("-----");
+
+        // Array copyOfRange in O(n)
+        String[] stringArr4Copy3 = Arrays.copyOfRange(stringArr4, 1, 2);
+        System.out.println(Arrays.toString(stringArr4Copy3)); // [A]
+        System.out.println("-----");
+
+        // Array min or max in O(n)
+        int[] intArr3 = {9, 3, 2, 100, 4};
+        int min = Arrays.stream(intArr3).min().getAsInt();
+        System.out.println(min); // 2
+
+        String[] stringArr5 = {"H", "A", "X", "I"};
+        String max = Arrays.stream(stringArr5).max(String::compareTo).get();
+        System.out.println(max); // X
+        System.out.println("-----");
     }
 }
 
-import java.util.*;
+```
+
+# ArrayList
+```Java
+package ArrayListSyntax;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // init
+        // ArrayList
+
+        // ArrayList init in O(1) or O(n)
         List<Integer> list1 = new ArrayList<>();
-
         System.out.println(list1); // []
+        System.out.println("-----");
 
-        // append in O(1) (avg)
+        // ArrayList add in O(1) (avg)
         list1.add(5);
         list1.add(8);
         list1.add(20);
         System.out.println(list1); // [5, 8, 20]
+        System.out.println("-----");
 
-        // get in O(1)
+        // ArrayList get in O(1)
         System.out.println(list1.get(0)); // 5
+        System.out.println("-----");
 
-        // size in O(1)
+        // ArrayList size in O(1)
         System.out.println(list1.size()); // 3
+        System.out.println(list1.isEmpty()); // false
+        System.out.println("-----");
 
-        // update in O(1)
+        // ArrayList set in O(1)
         list1.set(2, 99);
         System.out.println(list1); // [5, 8, 99]
+        System.out.println("-----");
 
-        // insert in O(n)
+        // ArrayList add (with idx) in O(n)
         list1.add(0, 100);
         System.out.println(list1); // [100, 5, 8, 99]
+        System.out.println("-----");
 
-        // delete in O(n)
+        // ArrayList remove in O(n)
         list1.remove(list1.size() - 1);
         System.out.println(list1); // [100, 5, 8]
+        System.out.println("-----");
 
-        // sort in O(nlogn)
+        // ArrayList sort in O(nlogn)
         Collections.sort(list1);
         System.out.println(list1); // [5, 8, 100]
+
         Collections.sort(list1, (a, b) -> b - a);
         System.out.println(list1); // [100, 8, 5]
 
-        // convert ArrayList to array
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("A");
-        arrayList.add("B");
-        arrayList.add("C");
-        String[] array = arrayList.toArray(new String[arrayList.size()]);
-        System.out.println(Arrays.toString(array)); // [A, B, C]
+        Collections.sort(list1, Comparator.naturalOrder());
+        System.out.println(list1); // [5, 8, 100]
+        System.out.println("-----");
 
-        // traverse through ArrayList
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Item 1");
-        arrayList.add("Item 2");
-        arrayList.add("Item 3");
-        for (int i = 0; i < arrayList.size(); i++) {
-            String item = arrayList.get(i);
+        // ArrayList convert to array in O(n)
+        List<String> list2 = new ArrayList<>();
+        list2.add("A");
+        list2.add("B");
+        list2.add("C");
+        String[] array = list2.toArray(new String[list2.size()]);
+        System.out.println(Arrays.toString(array)); // [A, B, C]
+        System.out.println("-----");
+
+        // ArrayList reverse in O(n)
+        Collections.reverse(list2);
+        System.out.println(list2); // [C, B, A]
+        System.out.println("-----");
+
+        // ArrayList traverse in O(n)
+        List<String> list3 = new ArrayList<>();
+        list3.add("Item1");
+        list3.add("Item2");
+        list3.add("Item3");
+        for (int i = 0; i < list3.size(); i++) {
+            String item = list3.get(i);
             System.out.println("for-loop: " + item);
         }
         /*
-        for-loop: Item 1
-        for-loop: Item 2
-        for-loop: Item 3
+        for-loop: Item1
+        for-loop: Item2
+        for-loop: Item3
         */
-        for (String item : arrayList) {
+
+        for (String item : list3) {
             System.out.println("for-each: " + item);
         }
+        System.out.println("-----");
         /*
-        for-each: Item 1
-        for-each: Item 2
-        for-each: Item 3
+        for-each: Item1
+        for-each: Item2
+        for-each: Item3
         */
+
+        // ArrayList 2D in O(RC)
+        List<List<Integer>> matrix = new ArrayList<>();
+        for (int r = 0; r < 3; r++) {
+            List<Integer> innerList = new ArrayList<>();
+            for (int c = 0; c < 5; c++) {
+                innerList.add(0);
+            }
+            matrix.add(innerList);
+        }
+        System.out.println(matrix);
+        System.out.println("-----");
+        /*
+        [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+        */
+
+        // ArrayList subList in O(n)
+        List<String> subList3 = list3.subList(1, 2);
+        System.out.println(subList3); // [Item2]
+        System.out.println("-----");
+
+        // ArrayList addAll in O(k)
+        subList3.addAll(Arrays.asList("newItem1", "newItem2"));
+        System.out.println(subList3); // [Item2, newItem1, newItem2]
+        System.out.println("-----");
+
+        // ArrayList concat in O(n+m)
+        List<Integer> firstList = new ArrayList<>();
+        firstList.add(10);
+        firstList.add(20);
+        List<Integer> secondList = new ArrayList<>();
+        secondList.add(- 5);
+        secondList.addAll(firstList); // addAll is shallow copy
+        List<Integer> concatList = Stream.concat(firstList.stream(), secondList.stream())
+                                         .toList();
+        System.out.println(concatList); // [10, 20, -5, 10, 20]
+        System.out.println("-----");
+
+        // ArrayList min or max in O(n)
+        int minVal = Collections.min(concatList);
+        System.out.println(minVal); // - 5
+
+        Integer maxVal = Collections.max(concatList);
+        System.out.println(maxVal); // 20
+        System.out.println("-----");
+
+        // ArrayList binarySearch in O(logn)
+        // if have duplicate target vals, not guarantee which idx of them will be returned
+        // try to get first/last one of them will cost additional O(k)
+        List<Integer> list4 = new ArrayList<>(Arrays.asList(20, 49, 88, 120));
+        int foundIdx = Collections.binarySearch(list4, 49);
+        System.out.println(foundIdx); // 1
+
+        int nonFoundIdx1 = Collections.binarySearch(list4, 50);
+        System.out.println(nonFoundIdx1); // - 3
+        System.out.println(~ nonFoundIdx1); // 2, is insertion point idx
+
+        int nonFoundIdx2 = Collections.binarySearch(list4, 130);
+        System.out.println(nonFoundIdx2); // - 5
+        System.out.println(~ nonFoundIdx2); // 4, is insertion point idx
+
+        int nonFoundIdx3 = Collections.binarySearch(list4, 8);
+        System.out.println(nonFoundIdx3); // - 1
+        System.out.println(~ nonFoundIdx3); // 0, is insertion point idx
+        System.out.println("-----");
     }
 }
+
 ```
 
-# dict
+# HashMap
 ```Java
-// HashMap
+package HashMapSyntax;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
 
     public static void main(String[] args) {
-        
-        // init
-        Map<String, Integer> map = new HashMap<>();
 
-        // add and update in O(1)
+        // HashMap
+
+        // HashMap init in O(1) or O(n)
+        HashMap<String, Integer> map = new HashMap<>();
+        System.out.println(map); // {}
+        System.out.println("-----");
+
+        // HashMap put in O(1) (avg)
         map.put("first", 1);
         map.put("second", 2);
         System.out.println(map); // {first=1, second=2}
 
         map.put("second", 50);
         System.out.println(map); // {first=1, second=50}
+        System.out.println("-----");
 
-        // get in O(1)
+        // HashMap get in O(1) (avg)
         System.out.println(map.get("first")); // 1
         System.out.println(map.get("third")); // null
+        System.out.println("-----");
 
-        // look in O(1)
+        // HashMap containsKey in O(1) (avg)
         System.out.println(map.containsKey("first")); // true
         System.out.println(map.containsKey("third")); // false
+        System.out.println("-----");
 
-        // delete in O(1)
-        map.remove("second");
-        System.out.println(map); // {first=1}
-        map.remove("second");
+        // HashMap remove in O(1) (avg)
+        int removedVal = map.remove("second");
+        System.out.println(removedVal); // 50
         System.out.println(map); // {first=1}
 
-        // size in O(1)
+        Integer removedVal2 = map.remove("second");
+        System.out.println(removedVal2); // null
+        System.out.println(map); // {first=1}
+        System.out.println("-----");
+
+        // HashMap size in O(1)
         System.out.println(map.size()); // 1
+        System.out.println(map.isEmpty()); // false
+        System.out.println("-----");
 
-        // above ops are avg O(1) due to the possibility of hash collision
-
-        // get keys in O(n)
+        // HashMap keySet in O(n)
         map.put("fourth", 400);
         Set<String> set = map.keySet();
         System.out.println(set); // [fourth, first]
 
-        // get values in O(n)
+        List<String> keysList = new ArrayList<>(set);
+        System.out.println(keysList); // [fourth, first]
+
+        System.out.println("-----");
+
+        // HashMap values in O(n)
         Collection<Integer> collection = map.values();
         System.out.println(collection); // [400, 1]
 
-        // get key-value pairs in O(n)
+        List<Integer> valuesList = new ArrayList<>(collection);
+        System.out.println(valuesList); // [400, 1]
+        System.out.println("-----");
+
+        // HashMap entrySet in O(n)
         Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
         System.out.println(entrySet); // [fourth=400, first=1]
+        System.out.println("-----");
 
-        // traverse through HashMap
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("A", 100);
-        map.put("S", 500);
-        map.put("Q", 10);
-
-        for (String key : map.keySet()) {
+        // HashMap traverse in O(n)
+        HashMap<String, Integer> map2 = new HashMap<>();
+        map2.put("A", 100);
+        map2.put("B", 500);
+        map2.put("C", 10);
+        for (String key: map2.keySet()) {
             System.out.println("Key: " + key);
         }
         /*
         Key: A
-        Key: Q
-        Key: S
+        Key: B
+        Key: C
         */
 
-        for (Integer value : map.values()) {
+        for (Integer value: map2.values()) {
             System.out.println("Value: " + value);
         }
         /*
         Value: 100
-        Value: 10
         Value: 500
+        Value: 10
         */
 
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+        for (Map.Entry<String, Integer> entry: map2.entrySet()) {
             String key = entry.getKey();
             Integer value = entry.getValue();
             System.out.println("Key: " + key + ", Value: " + value);
         }
+        System.out.println("-----");
         /*
         Key: A, Value: 100
-        Key: Q, Value: 10
-        Key: S, Value: 500
+        Key: B, Value: 500
+        Key: C, Value: 10
         */
 
-        // get default value in O(1)
-        Map<String, Integer> scores = new HashMap<>();
-        scores.put("A", 95);
-        scores.put("B", 89);
-        int aScore = scores.getOrDefault("A", 0);
-        int cScore = scores.getOrDefault("C", 0);
-        System.out.println("A's Score: " + aScore);    // A's Score: 95
-        System.out.println("C's Score: " + cScore);  // C's Score: 0
+        // HashMap getOrDefault in O(1) (avg)
+        HashMap<String, Integer> map3 = new HashMap<>();
+        map3.put("A", 95);
+        map3.put("B", 89);
+        int aScore = map3.getOrDefault("A", 0);
+        System.out.println(aScore); // 95
+
+        int cScore = map3.getOrDefault("C", 0);
+        System.out.println(cScore); // 0
+        System.out.println("-----");
+
+        // HashMap compute in O(1) (avg)
+        HashMap<String, Integer> map4 = new HashMap<>();
+        map4.compute("A", (k, v) -> v == null ? 1 : v + 1);
+        System.out.println(map4); // {A=1}
+
+        map4.compute("A", (k, v) -> v == null ? 1 : v + 1);
+        System.out.println(map4); // {A=2}
+
+        map4.compute("B", (k, v) -> v == null ? 1 : v + 1);
+        System.out.println(map4); // {A=2, B=1}
+        System.out.println("-----");
+
+        // HashMap computeIfAbsent in O(1) (avg)
+        HashMap<String, List<String>> map5 = new HashMap<>();
+        map5.computeIfAbsent("Interviewer", k -> new ArrayList<>()).add("Bob");
+        System.out.println(map5); // {Interviewer=[Bob]}
+
+        map5.computeIfAbsent("Manager", k -> new ArrayList<>()).add("Ada");
+        map5.computeIfAbsent("Manager", k -> new ArrayList<>()).add("Cela");
+        System.out.println(map5); // {Interviewer=[Bob], Manager=[Ada, Cela]}
+        System.out.println("-----");
+
+        // HashMap min or max in O(n)
+        String maxKey = Collections.max(map2.keySet());
+        System.out.println(maxKey); // C
+
+        Integer minVal = Collections.min(map2.values());
+        System.out.println(minVal); // 10
+
+        String keyWithMaxVal = Collections.max(map2.entrySet(), Map.Entry.comparingByValue()).getKey();
+        System.out.println(keyWithMaxVal); // B
+        System.out.println("-----");
     }
 }
+
 ```
 
-# set
+# HashSet
 ```Java
-// HashSet
+package HashSetSyntax;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // init
-        Set<Integer> set = new HashSet<>();
-        System.out.println(set); // []
+        // HashSet
 
-        // add in O(1)
+        // HashSet init in O(1) or O(n)
+        HashSet<Integer> set = new HashSet<>();
+        System.out.println(set); // []
+        System.out.println("-----");
+
+        // HashSet add in O(1) (avg)
         boolean bool1 = set.add(100);
-        boolean bool2 = set.add(500);
         System.out.println(bool1); // true
+
+        boolean bool2 = set.add(500);
         System.out.println(bool2); // true
         System.out.println(set); // [100, 500]
 
         boolean bool3 = set.add(100);
         System.out.println(bool3); // false
         System.out.println(set); // [100, 500]
+        System.out.println("-----");
 
-        // look in O(1)
+        // HashSet contains in O(1) (avg)
         System.out.println(set.contains(100)); // true
         System.out.println(set.contains(3000)); // false
+        System.out.println("-----");
 
-        // size in O(1)
-        System.out.println(set.size()); // 2
-
-        // delete in O(1)
+        // HashSet remove in O(1) (avg)
         boolean bool4 = set.remove(500);
-        boolean bool5 = set.remove(500);
         System.out.println(bool4); // true
+
+        boolean bool5 = set.remove(500);
         System.out.println(bool5); // false
         System.out.println(set); // [100]
-    }
-}
-```
+        System.out.println("-----");
 
-# tree map
-```Java
-// TreeMap
+        // HashSet size in O(1)
+        System.out.println(set.size()); // 1
+        System.out.println(set.isEmpty()); // false
+        System.out.println("-----");
 
-import java.util.*;
-
-public class Main {
-
-    public static void main(String[] args) {
-
-        // init
-        TreeMap<String, Integer> treeMap1 = new TreeMap<>();
-        System.out.println(treeMap1); // {}
-
-        // size in O(1)
-        System.out.println(treeMap1.size()); // 0
-
-        // add and update in O(logn)
-        treeMap1.put("apple", 10);
-        treeMap1.put("banana", 30);
-        System.out.println(treeMap1); // {apple=10, banana=30}
-        treeMap1.put("banana", 45);
-        System.out.println(treeMap1); // {apple=10, banana=45}
-
-        // get in O(logn)
-        System.out.println(treeMap1.get("apple")); // 10
-        System.out.println(treeMap1.get("mango")); // null
-
-        // look in O(logn)
-        System.out.println(treeMap1.containsKey("apple")); // true
-        System.out.println(treeMap1.containsKey("mango")); // false
-
-        // delete in O(logn)
-        Integer val1 = treeMap1.remove("banana");
-        Integer val2 = treeMap1.remove("banana");
-        System.out.println(val1); // 45
-        System.out.println(val2); // null
-        System.out.println(treeMap1); // {apple=10}
-
-        // first key in O(logn)
-        TreeMap<Integer, String> treeMap2 = new TreeMap<>();
-        treeMap2.put(100, "apple");
-        treeMap2.put(500, "banana");
-        treeMap2.put(300, "mango");
-        System.out.println(treeMap2); // {100=apple, 300=mango, 500=banana}
-        System.out.println(treeMap2.firstKey()); // 100
-
-        // last key in O(logn)
-        System.out.println(treeMap2.lastKey()); // 500
-
-        // ceiling key in O(logn)
-        System.out.println(treeMap2.ceilingKey(400)); // 500
-        System.out.println(treeMap2.ceilingKey(500)); // 500
-        System.out.println(treeMap2.ceilingKey(600)); // null
-        
-        // floor key in O(logn)
-        System.out.println(treeMap2.floorKey(200)); // 100
-        System.out.println(treeMap2.floorKey(100)); // 100
-        System.out.println(treeMap2.floorKey(50)); // null
-        
-        // lower key in O(logn)
-        System.out.println(treeMap2.lowerKey(200)); // 100
-        System.out.println(treeMap2.lowerKey(100)); // null
-        System.out.println(treeMap2.lowerKey(50)); // null
-    }
-}
-```
-
-# heap
-```Java
-// PriorityQueue
-
-import java.util.*;
-
-class FreqWord {
-    private String content;
-    private Integer freq;
-
-    public FreqWord(String content, Integer freq) {
-        this.content = content;
-        this.freq = freq;
-    }
-
-    public String getContent() { return content; }
-    public Integer getFreq() { return freq; }
-}
-
-public class Main {
-
-    public static void main(String[] args) {
-
-        // init, default is min heap
-        PriorityQueue<Integer> pq1 = new PriorityQueue<>();
-        PriorityQueue<Integer> pq2 = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<FreqWord> pq3 = 
-            new PriorityQueue<>((a, b) -> a.getFreq() != b.getFreq() ? 
-                                a.getFreq() - b.getFreq() : a.getContent().compareTo(b.getContent()));
+        // HashSet traverse in O(n)
+        HashSet<Integer> set2 = new HashSet<>(Arrays.asList(1, 3, 5, 10));
+        for (Integer item: set2) {
+            System.out.println(item);
+        }
+        System.out.println("-----");
         /*
-        PriorityQueue<FreqWord> pq3 = new PriorityQueue<>(
-            Comparator.comparing(FreqWord::getFreq)
-                      .thenComparing(FreqWord::getContent)
-        );
+        1
+        3
+        5
+        10
         */
 
-        // peek in O(1)
+        // HashSet addAll in O(k)
+        set2.addAll(Arrays.asList(5, 5, 5, 50, 100));
+        System.out.println(set2); // [1, 50, 3, 100, 5, 10]
+        System.out.println("-----");
+
+        // HashSet min or max in O(n)
+        Integer maxVal = Collections.max(set2);
+        System.out.println(maxVal); // 100
+
+        int minVal = Collections.min(set2);
+        System.out.println(minVal); // 1
+        System.out.println("-----");
+    }
+}
+
+```
+
+# PriorityQueue
+```Java
+package PriorityQueueSyntax;
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // PriorityQueue
+
+        // PriorityQueue init in O(1) or O(n)
+        PriorityQueue<Integer> pq1 = new PriorityQueue<>(); // min heap
+        PriorityQueue<Integer> pq2 = new PriorityQueue<>(Comparator.reverseOrder()); // max heap
+        PriorityQueue<FreqWord> pq3 =
+                new PriorityQueue<>((a, b) -> !a.freq().equals(b.freq()) ?
+                        a.freq().compareTo(b.freq()) : a.content().compareTo(b.content()));
+        System.out.println(pq1); // []
+        System.out.println("-----");
+
+        // PriorityQueue peek in O(1)
         pq3.offer(new FreqWord("mango", 25));
-        System.out.println(pq3.peek().getContent()); // mango
+        System.out.println(pq3.peek()); // FreqWord[content=mango, freq=25]
+
         pq3.offer(new FreqWord("pineapple", 10));
-        System.out.println(pq3.peek().getContent()); // pineapple
+        System.out.println(pq3.peek()); // FreqWord[content=pineapple, freq=10]
+
         pq3.offer(new FreqWord("banana", 10));
-        System.out.println(pq3.peek().getContent()); // banana
+        System.out.println(pq3.peek()); // FreqWord[content=banana, freq=10]
+
         pq3.offer(new FreqWord("apple", 5));
-        System.out.println(pq3.peek().getContent()); // apple
+        System.out.println(pq3.peek()); // FreqWord[content=apple, freq=5]
+
         pq3.offer(new FreqWord("grape", 5));
-        System.out.println(pq3.peek().getContent()); // apple
+        System.out.println(pq3.peek()); // FreqWord[content=apple, freq=5]
+        System.out.println("-----");
 
-        // size in O(1)
-        System.out.println(pq3.size()); // 4
+        // PriorityQueue size in O(1)
+        System.out.println(pq3.size()); // 5
+        System.out.println(pq3.isEmpty()); // false
+        System.out.println("-----");
 
-        // push in O(logn)
+        // PriorityQueue offer in O(logn)
         pq1.offer(100);
         pq1.offer(50);
         pq1.offer(200);
         System.out.println(pq1.peek()); // 50
+
         pq2.offer(100);
         pq2.offer(50);
         pq2.offer(200);
         System.out.println(pq2.peek()); // 200
+        System.out.println("-----");
 
-        // pop in O(logn)
+        // PriorityQueue poll in O(logn)
         System.out.println(pq1.size()); // 3
         Integer num = pq1.poll();
         System.out.println(num); // 50
         System.out.println(pq1.size()); // 2
         System.out.println(pq1.peek()); // 100
+        System.out.println("-----");
     }
 }
+
+record FreqWord(String content, Integer freq) { }
+
 ```
 
-# stack and queue
+# ArrayDeque
 ```Java
-// ArrayDeque
+package ArrayDequeSyntax;
 
-import java.util.*;
+import java.util.ArrayDeque;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // init
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        // ArrayDeque (as stack)
+        // push/pop direction is opposite to Python's list (as stack)
 
-        // push in O(1) (in left)
+        // ArrayDeque (as stack) init in O(1) or O(n)
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        System.out.println(stack); // []
+        System.out.println("-----");
+
+        // ArrayDeque (as stack) push in O(1) (in left)
         stack.push(1);
         stack.push(2);
         stack.push(3);
         System.out.println(stack); // [3, 2, 1]
+        System.out.println("-----");
 
-        // pop in O(1) (in left)
+        // ArrayDeque (as stack) pop in O(1) (in left)
         Integer num1 = stack.pop();
         System.out.println(num1); // 3
         System.out.println(stack); // [2, 1]
+        System.out.println("-----");
 
-        // peek in O(1) (in left)
+        // ArrayDeque (as stack) peek in O(1) (in left)
         Integer num2 = stack.peek();
         System.out.println(num2); // 2
         System.out.println(stack); // [2, 1]
+        System.out.println("-----");
 
-        // size in O(1)
+        // ArrayDeque (as stack) size in O(1)
         System.out.println(stack.size()); // 2
-    }
-}
+        System.out.println(stack.isEmpty()); // false
+        System.out.println("-----");
 
-import java.util.*;
+        // ArrayDeque (as queue)
+        // offer/poll direction is same as Python's deque (as queue)
 
-public class Main {
-
-    public static void main(String[] args) {
-
-        // init
+        // ArrayDeque (as queue) init
         ArrayDeque<Integer> queue = new ArrayDeque<>();
+        System.out.println(queue); // []
+        System.out.println("-----");
 
-        // push in O(1) (in right)
+        // ArrayDeque (as queue) offer in O(1) (in right)
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
         System.out.println(queue); // [1, 2, 3]
+        System.out.println("-----");
 
-        // pop in O(1) (in left)
-        Integer num1 = queue.poll();
-        System.out.println(num1); // 1
+        // ArrayDeque (as queue) poll in O(1) (in left)
+        Integer num3 = queue.poll();
+        System.out.println(num3); // 1
+        System.out.println(queue); // [2, 3]
+        System.out.println("-----");
+
+        // ArrayDeque (as queue) peek (in left) and peekLast (in right) in O(1)
+        Integer num4 = queue.peek();
+        System.out.println(num4); // 2
         System.out.println(queue); // [2, 3]
 
-        // peek (in left) and peekLast (in right) in O(1)
-        Integer num2 = queue.peek();
-        System.out.println(num2); // 2
+        Integer num5 = queue.peekLast();
+        System.out.println(num5); // 3
         System.out.println(queue); // [2, 3]
-        Integer num3 = queue.peekLast();
-        System.out.println(num3); // 3
-        System.out.println(queue); // [2, 3]
+        System.out.println("-----");
 
-        // size in O(1)
+        // ArrayDeque (as queue) size in O(1)
         System.out.println(queue.size()); // 2
+        System.out.println(queue.isEmpty()); // false
+        System.out.println("-----");
     }
 }
+
 ```
 
-# number
+# String
 ```Java
-// number
+package StringSyntax;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // min and max
-        int max1 = Integer.MAX_VALUE;
-        int min1 = Integer.MIN_VALUE;
-        System.out.println(max1); // 2147483647
-        System.out.println(min1); // -2147483648
-        long max2 = Long.MAX_VALUE;
-        long min2 = Long.MIN_VALUE;
-        System.out.println(max2); // 9223372036854775807
-        System.out.println(min2); // -9223372036854775808
+        // String and StringBuilder and StringBuffer
 
-        // get min and get max
-        Math.max(1, 2); // 2
-        Math.min(4, 8); // 4
+        // String: Immutable, thread-safe,
+        // inefficient in scenarios requiring extensive modifications due to constant creation of new objects
 
-        // division
-        int num1 = 80;
-        int num2 = 7;
-        System.out.println(num1 / num2); // 11
-        System.out.println(num1 % num2); // 3
-        int num3 = 10;
-        int num4 = - 7;
-        int num5 = - 17;
-        System.out.println(num3 / num4); // - 1, truncate toward zero
-        System.out.println(num3 / num5); // 0, truncate toward zero
+        // StringBuilder: Mutable, not thread-safe,
+        // efficient for single-threaded scenarios where lots of modifications are required
 
-        // random
-        // [a, b]
-        int max3 = 5;
-        int min3 = 2;
-        Random random = new Random();
-        int randomInt = random.nextInt((max3 - min3) + 1) + min3;
-        System.out.println(randomInt); // 5
+        // StringBuffer: Mutable, thread-safe,
+        // suitable for multithreading scenarios but slower than StringBuilder due to synchronization
 
-    }
-}
-```
-
-# string
-```Java
-// String and StringBuilder and StringBuffer
-
-// String: Immutable, safe for use in multi-threaded environments, but may be inefficient in scenarios requiring extensive modifications due to constant creation of new objects
-// StringBuilder: Mutable, not thread-safe, efficient for single-threaded scenarios where lots of modifications are required
-// StringBuffer: Mutable, thread-safe, suitable for multi-threaded scenarios but slower than StringBuilder due to synchronization
-
-import java.util.*;
-
-public class Main {
-
-    public static void main(String[] args) {
-
+        // String size in O(1)
         String s = "Apple";
-
-        // size in O(1)
         System.out.println(s.length()); // 5
-        
-        // get char in O(1)
-        System.out.println(s.charAt(4)); // e
+        System.out.println("-----");
 
-        // get substring in O(n), [a, b)
+        // String charAt in O(1)
+        char letter = s.charAt(4);
+        System.out.println(letter); // e
+        System.out.println("-----");
+
+        // String substring in O(n)
+        // [a, b)
         System.out.println(s.substring(0, 2)); // Ap
+        System.out.println("-----");
 
-        // look in O(n)
+        // String contains, startsWith, endsWith in O(n)
         boolean bool1 = s.contains("pp");
-        boolean bool2 = s.contains("zq");
         System.out.println(bool1); // true
-        System.out.println(bool2); // false
-        boolean bool3 = s.startsWith("Axp");
-        boolean bool4 = s.endsWith("pple");
-        System.out.println(bool3); // false
-        System.out.println(bool4); // true
 
-        // look idx in O(n)
+        boolean bool2 = s.contains("zq");
+        System.out.println(bool2); // false
+
+        boolean bool3 = s.startsWith("Axp");
+        System.out.println(bool3); // false
+
+        boolean bool4 = s.endsWith("pple");
+        System.out.println(bool4); // true
+        System.out.println("-----");
+
+        // String indexOf in O(n)
         System.out.println(s.indexOf("pl")); // 2
         System.out.println(s.indexOf("z")); // - 1
+        System.out.println("-----");
 
-        // get char array in O(n)
+        // String convert to char array in O(n)
         char[] arr = s.toCharArray();
         System.out.println(arr); // Apple
         System.out.println(arr[4]); // e
+        System.out.println("-----");
 
-        // split in O(n)
+        // String split in O(n)
         String sentence = "apple,banana,mango";
         String[] words = sentence.split(",");
         System.out.println(Arrays.toString(words)); // [apple, banana, mango]
+        System.out.println("-----");
 
-        // compare in O(n)
+        // String equals, compareTo in O(n)
         String s1 = "apple";
         String s2 = "apple";
         String s3 = "banana";
         System.out.println(s1.equals(s2)); // true
         System.out.println(s1.compareTo(s2)); // 0
         System.out.println(s1.compareTo(s3)); // - 1
+        System.out.println("-----");
 
-        // change case in O(n)
+        // String toUpperCase, toLowerCase in O(n)
         String upperS = s.toUpperCase();
-        String lowerS = s.toLowerCase();
         System.out.println(upperS); // APPLE
+
+        String lowerS = s.toLowerCase();
         System.out.println(lowerS); // apple
+        System.out.println("-----");
 
-        // trim in O(n)
-        String beforeTrim = "   Polo. ";
-        String afterTrim = beforeTrim.trim();
-        System.out.println(afterTrim); // Polo.
+        // String strip in O(n)
+        String beforeStrip = "   Polo. ";
+        String afterStrip = beforeStrip.strip();
+        System.out.println(afterStrip); // Polo.
+        System.out.println("-----");
 
-        // replace in O(n)
+        // String replace in O(n)
         String beforeReplace = "Yolo";
         String afterReplace = beforeReplace.replace("o", "a");
         System.out.println(afterReplace); // Yala
+        System.out.println("-----");
 
-        // concat in O(n)
-        String s1 = "a" + "b" + "c";
-        System.out.println(s1); // abc
-        String s2 = "Hello".concat(" World").concat("!!"); 
-        System.out.println(s2); // Hello World!!
+        // String concat in O(n)
+        String s4 = "a" + "b" + "c";
+        System.out.println(s4); // abc
+
+        String s5 = "Hello".concat(" World").concat("!!");
+        System.out.println(s5); // Hello World!!
+        System.out.println("-----");
 
         // char related methods
         char c1 = 'a';
         char c2 = 'A';
         char c3 = '5';
+        System.out.println(Character.isLowerCase(c1)); // true
+        System.out.println(Character.isUpperCase(c2)); // true
         System.out.println(Character.isLetter(c1)); // true
         System.out.println(Character.isDigit(c3)); // true
         System.out.println(Character.isLetterOrDigit(c3)); // true
-        System.out.println(Character.isUpperCase(c2)); // true
-        System.out.println(Character.isLowerCase(c1)); // true
+        System.out.println("-----");
 
         // StringBuilder
         StringBuilder sb1 = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder(s);
         sb1.append("f");
+        sb1.append("c");
+        String s6 = sb1.toString();
+        System.out.println(s6); // fc
+
+        StringBuilder sb2 = new StringBuilder(s);
         sb2.append("f");
-        System.out.println(sb1.toString()); // f
-        System.out.println(sb2.reverse().toString()); // felppA
+        String s7 = sb2.reverse().toString();
+        System.out.println(s7); // felppA
+        System.out.println("-----");
 
         // StringBuffer
         StringBuffer sbf = new StringBuffer("Hello");
         sbf.append(" World");
-        System.out.println(sbf.toString()); // Hello World
-        StringBuffer sb = new StringBuffer("Hello");
-        sb.insert(5, " World"); // Hello World
-        StringBuffer sb = new StringBuffer("HelloWorld");
-        sb.delete(5, 10); // Hello
-        StringBuffer sb = new StringBuffer("HelloWorld");
-        sb.replace(5, 10, " Friend"); // Hello Friend
-        StringBuffer sb = new StringBuffer("Hello");
-        sb.reverse(); // olleH
+        String s8 = sbf.toString();
+        System.out.println(s8); // Hello World
+
+        StringBuffer sbf2 = new StringBuffer("Hello");
+        sbf2.insert(2, "WWW");
+        String s9 = sbf2.toString();
+        System.out.println(s9); // HeWWWllo
+
+        StringBuffer sbf3 = new StringBuffer("HelloWorld");
+        sbf3.delete(5, 10);
+        String s10 = sbf3.toString();
+        System.out.println(s10); // Hello
+
+        StringBuffer sbf4 = new StringBuffer("HelloWorld");
+        sbf4.replace(5, 10, " Friend");
+        String s11 = sbf4.toString();
+        System.out.println(s11); // Hello Friend
+
+        StringBuffer sbf5 = new StringBuffer("Hello");
+        sbf5.reverse();
+        String s12 = sbf5.toString();
+        System.out.println(s12); // olleH
+        System.out.println("-----");
     }
 }
+
 ```
 
-# linked list
+# TreeMap
 ```Java
-// linked list
+package TreeMapSyntax;
 
-class ListNode<T> {
-    T val;
-    ListNode<T> next;
-    public ListNode(T val) {
-        this.val = val;
-    }
-}
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ListNode<Integer> node1 = new ListNode<>(1);
-        ListNode<Integer> node2 = new ListNode<>(2);
-        ListNode<Integer> node3 = new ListNode<>(3);
-        node1.next = node2;
-        node2.next = node3;
-        System.out.println(node1.next.next.val); // 3
+        // TreeMap
+
+        // TreeMap init in O(1) or O(n)
+        TreeMap<String, Integer> treeMap1 = new TreeMap<>();
+        System.out.println(treeMap1); // {}
+        System.out.println("-----");
+
+        // TreeMap size in O(1)
+        System.out.println(treeMap1.size()); // 0
+        System.out.println(treeMap1.isEmpty()); // true
+        System.out.println("-----");
+
+        // TreeMap put in O(logn)
+        treeMap1.put("apple", 10);
+        treeMap1.put("banana", 30);
+        System.out.println(treeMap1); // {apple=10, banana=30}
+
+        treeMap1.put("banana", 45);
+        System.out.println(treeMap1); // {apple=10, banana=45}
+        System.out.println("-----");
+
+        // TreeMap get in O(logn)
+        System.out.println(treeMap1.get("apple")); // 10
+        System.out.println(treeMap1.get("mango")); // null
+        System.out.println("-----");
+
+        // TreeMap containsKey in O(logn)
+        System.out.println(treeMap1.containsKey("apple")); // true
+        System.out.println(treeMap1.containsKey("mango")); // false
+        System.out.println("-----");
+
+        // TreeMap delete in O(logn)
+        Integer val1 = treeMap1.remove("banana");
+        System.out.println(val1); // 45
+
+        Integer val2 = treeMap1.remove("banana");
+        System.out.println(val2); // null
+        System.out.println(treeMap1); // {apple=10}
+        System.out.println("-----");
+
+        // TreeMap firstKey in O(logn)
+        TreeMap<Integer, String> treeMap2 = new TreeMap<>();
+        treeMap2.put(100, "apple");
+        treeMap2.put(500, "banana");
+        treeMap2.put(300, "mango");
+        System.out.println(treeMap2); // {100=apple, 300=mango, 500=banana}
+        System.out.println(treeMap2.firstKey()); // 100
+        System.out.println("-----");
+
+        // TreeMap lastKey in O(logn)
+        System.out.println(treeMap2.lastKey()); // 500
+        System.out.println("-----");
+
+        // TreeMap ceilingKey in O(logn)
+        System.out.println(treeMap2.ceilingKey(400)); // 500
+        System.out.println(treeMap2.ceilingKey(500)); // 500
+        System.out.println(treeMap2.ceilingKey(600)); // null
+        System.out.println("-----");
+
+        // TreeMap floorKey in O(logn)
+        System.out.println(treeMap2.floorKey(200)); // 100
+        System.out.println(treeMap2.floorKey(100)); // 100
+        System.out.println(treeMap2.floorKey(50)); // null
+        System.out.println("-----");
+
+        // TreeMap lowerKey in O(logn)
+        System.out.println(treeMap2.lowerKey(200)); // 100
+        System.out.println(treeMap2.lowerKey(100)); // null
+        System.out.println(treeMap2.lowerKey(50)); // null
+        System.out.println("-----");
+
+        // TreeMap higherKey in O(logn)
+        System.out.println(treeMap2.higherKey(400)); // 500
+        System.out.println(treeMap2.higherKey(500)); // null
+        System.out.println(treeMap2.higherKey(600)); // null
+        System.out.println("-----");
+
+        // TreeMap keySet in O(n)
+        Set<Integer> set = treeMap2.keySet();
+        System.out.println(set); // [100, 300, 500]
+        System.out.println("-----");
+
+        // TreeMap values in O(n)
+        Collection<String> collection = treeMap2.values();
+        System.out.println(collection); // [apple, mango, banana]
+        System.out.println("-----");
+
+        // TreeMap entrySet in O(n)
+        Set<Map.Entry<Integer, String>> entrySet = treeMap2.entrySet();
+        System.out.println(entrySet); // [100=apple, 300=mango, 500=banana]
+        System.out.println("-----");
+
+        // TreeMap traverse in O(n)
+        for (Integer key: treeMap2.keySet()) {
+            System.out.println("Key: " + key);
+        }
+        /*
+        Key: 100
+        Key: 300
+        Key: 500
+        */
+
+        for (String value: treeMap2.values()) {
+            System.out.println("Value: " + value);
+        }
+        /*
+        Value: apple
+        Value: mango
+        Value: banana
+         */
+
+        for (Map.Entry<Integer, String> entry: treeMap2.entrySet()) {
+            Integer key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+        System.out.println("-----");
+        /*
+        Key: 100, Value: apple
+        Key: 300, Value: mango
+        Key: 500, Value: banana
+         */
     }
 }
+
 ```
 
-# tree
+# Number
 ```Java
-// tree
+package NumberSyntax;
 
-class Node<T> {
-    T val;
-    Node<T> left;
-    Node<T> right;
-    public Node(T val) {
-        this.val = val;
-    }
-}
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
-        Node<Integer> node3 = new Node<>(3);
-        node1.left = node2;
-        node2.left = node3;
-        System.out.println(node1.left.left.val); // 3
-        System.out.println(node1.left.right); // null
+        // Number
+
+        // abs, floor, ceil
+        int neg = - 100;
+        int pos = Math.abs(neg);
+        System.out.println(pos); // 100
+
+        double floorVal = 2.8;
+        int intVal = (int) Math.floor(floorVal);
+        System.out.println(intVal); // 2
+
+        double ceilVal = 2.1;
+        int intVal2 = (int) Math.ceil(ceilVal);
+        System.out.println(intVal2); // 3
+        System.out.println("-----");
+
+        // sum
+        int[] arr = {1, 2, 3, 4, 5};
+        int sum = Arrays.stream(arr).sum();
+        System.out.println(sum); // 15
+
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
+        int sum2 = list.stream().mapToInt(Integer::intValue).sum();
+        System.out.println(sum2); // 10
+        System.out.println("-----");
+
+        // min and max
+        int max1 = Integer.MAX_VALUE;
+        Integer min1 = Integer.MIN_VALUE;
+        System.out.println(max1); // 2147483647 (2**31 - 1)
+        System.out.println(min1); // -2147483648 (- 2**31)
+
+        long max2 = Long.MAX_VALUE;
+        Long min2 = Long.MIN_VALUE;
+        System.out.println(max2); // 9223372036854775807 (2**63 - 1)
+        System.out.println(min2); // -9223372036854775808 (- 2**63)
+
+        System.out.println(Math.max(1, 2)); // 2
+        System.out.println(Math.min(1, 5)); // 1
+
+        int[] arr2 = {1, 2, 3, - 3, 0};
+        int minValFromArr = Arrays.stream(arr2).min().getAsInt();
+        System.out.println(minValFromArr); // - 3
+
+        List<Integer> list2 = new ArrayList<>(Arrays.asList(10, - 5, 90));
+        int minValFromList = Collections.min(list2);
+        System.out.println(minValFromList); // - 5
+        System.out.println("-----");
+
+        // division
+        int num1 = 80;
+        int num2 = 7;
+        System.out.println(num1 / num2); // 11
+        System.out.println(num1 % num2); // 3
+        int num3 = - 10;
+        int num4 = 7;
+        int num5 = 17;
+        System.out.println(num3 / num4); // - 1, truncate toward zero
+        System.out.println(num3 / num5); // 0, truncate toward zero
+        System.out.println(num3 % num4); // - 3
+        System.out.println(num3 % num5); // - 10
+        System.out.println("-----");
+
+        // random
+        // [a, b]
+        int a = 2;
+        int b = 5;
+        Random random = new Random();
+        int randomInt = random.nextInt(b - a + 1) + a;
+        System.out.println(randomInt); // 2 or 3 or 4 or 5
+        System.out.println("-----");
     }
 }
+
 ```
 
-# sort
+# Sort
 ```Java
-// comparable interface and comparator interface
-// nested classes (static nested class, inner class, local class, anonymous class)
-// lambda expression
-// method references
+package SortSyntax;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Sort
+        // Comparable interface and Comparator interface
+        // Nested classes (static nested class, inner class, local class, anonymous class)
+        // Lambda expression
+        // Method references
+
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(new Person("Appkz", 30));
+        people.add(new Person("Zeeeec", 25));
+        people.add(new Person("Cata", 20));
+        people.add(new Person("Pay", 50));
+        people.add(new Person("Ye", 50));
+
+        // Collections.sort(list)
+        // element's Class must implement the Comparable Interface and compareTo method
+        // sort by age (asc)
+        Collections.sort(people);
+
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Pay - 50
+        Ye - 50
+        */
+
+        // Collections.sort(list, comparator)
+        // Comparator comes from a static nested class
+        // sort by name (asc)
+        Collections.sort(people, new Person.PersonNameComparator());
+
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Appkz - 30
+        Cata - 20
+        Pay - 50
+        Ye - 50
+        Zeeeec - 25
+        */
+
+        // Collections.sort(list, comparator.reversed())
+        // Comparator comes from a static nested class
+        // sort by name (desc)
+        Collections.sort(people, new Person.PersonNameComparator().reversed());
+
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Zeeeec - 25
+        Ye - 50
+        Pay - 50
+        Cata - 20
+        Appkz - 30
+        */
+
+        // Collections.sort(list, comparator)
+        // Comparator comes from an inner class
+        // sort by name length (asc)
+        Collections.sort(people, new Person().new PersonNameLengthComparator());
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Ye - 50
+        Pay - 50
+        Cata - 20
+        Appkz - 30
+        Zeeeec - 25
+        */
+
+        // sorting with static method (local class in that method)
+        // sort by the last char of the name (asc)
+        Person.sortByNameLastChar(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Ye - 50
+        Pay - 50
+        Appkz - 30
+        */
+
+        // sorting with static method (anonymous class in that method)
+        // sort by age (asc)
+        Person.sortByAgeAscI(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Ye - 50
+        Pay - 50
+        */
+
+        // sorting with static method (lambda expression in that method)
+        // sort by age (desc)
+        Person.sortByAgeDesc(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Ye - 50
+        Pay - 50
+        Appkz - 30
+        Zeeeec - 25
+        Cata - 20
+        */
+
+        // sorting with static method (lambda expression in that method)
+        // sort by age (asc)
+        Person.sortByAgeAscII(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Ye - 50
+        Pay - 50
+        */
+
+        // sorting with static method (method references in that method)
+        // sort by age (asc) then name (asc)
+        Person.sortByAgeThenName(people);
+        for (Person p : people) {
+            System.out.println(p);
+        }
+        System.out.println("-----");
+        /*
+        Cata - 20
+        Zeeeec - 25
+        Appkz - 30
+        Pay - 50
+        Ye - 50
+        */
+    }
+}
 
 class Person implements Comparable<Person> {
     private String name;
@@ -2084,13 +2615,16 @@ class Person implements Comparable<Person> {
     @Override
     public String toString() { return this.name + " - " + this.age; }
 
-    // Implementing the Comparable Interface and compareTo method - sort by age (asc)
+    // Implementing the Comparable Interface and compareTo method
+    // sort by age (asc)
     @Override
     public int compareTo(Person other) {
-        return this.age - other.age; 
+        return this.age - other.age;
     }
 
-    // Static nested class - Implementing the Comparator Interface and compare method - sort by name (asc)
+    // Static nested class
+    // Implementing the Comparator Interface and compare method
+    // sort by name (asc)
     static class PersonNameComparator implements Comparator<Person> {
         @Override
         public int compare(Person p1, Person p2) {
@@ -2098,7 +2632,9 @@ class Person implements Comparable<Person> {
         }
     }
 
-    // Inner class - Implementing the Comparator Interface and compare method - sort by name length (asc)
+    // Inner class
+    // Implementing the Comparator Interface and compare method
+    // sort by name length (asc)
     class PersonNameLengthComparator implements Comparator<Person> {
         @Override
         public int compare(Person p1, Person p2) {
@@ -2106,7 +2642,9 @@ class Person implements Comparable<Person> {
         }
     }
 
-    // Local class in the method - Implementing the Comparator Interface and compare method - sort by the last char of the name (asc)
+    // Local class in the method
+    // Implementing the Comparator Interface and compare method
+    // sort by the last char of the name (asc)
     public static void sortByNameLastChar(List<Person> people) {
         class PersonLastNameCharacterComparator implements Comparator<Person> {
             @Override
@@ -2117,7 +2655,9 @@ class Person implements Comparable<Person> {
         Collections.sort(people, new PersonLastNameCharacterComparator());
     }
 
-    // Anonymous class in the method - Implementing the Comparator Interface and compare method - sort by age (asc)
+    // Anonymous class in the method
+    // Implementing the Comparator Interface and compare method
+    // sort by age (asc)
     public static void sortByAgeAscI(List<Person> people) {
         Collections.sort(people, new Comparator<Person>() {
             @Override
@@ -2127,160 +2667,22 @@ class Person implements Comparable<Person> {
         });
     }
 
-    // Lambda expression in the method - sort by age (desc)
+    // Lambda expression in the method
+    // sort by age (desc)
     public static void sortByAgeDesc(List<Person> people) {
         Collections.sort(people, (p1, p2) -> p2.age - p1.age);
     }
 
-    // Lambda expression in the method - sort by age (asc)
+    // Lambda expression in the method
+    // sort by age (asc)
     public static void sortByAgeAscII(List<Person> people) {
         Collections.sort(people, Comparator.comparing(p -> p.age));
     }
 
-    // Method references in the method - sort by age (asc) then name (asc)
+    // Method references in the method
+    // sort by age (asc) then name (asc)
     public static void sortByAgeThenName(List<Person> people) {
         Collections.sort(people, Comparator.comparing(Person::getAge).thenComparing(Person::getName));
-    }
-
-}
-
-public class Main {
-    public static void main(String[] args) {
-        ArrayList<Person> people = new ArrayList<>();
-        people.add(new Person("Appkz", 30));
-        people.add(new Person("Zeeeec", 25));
-        people.add(new Person("Cata", 20));
-        people.add(new Person("Pay", 50));
-        people.add(new Person("Ye", 50));
-
-        // Sorting - element's Class must implement the Comparable Interface and compareTo method - sort by age (asc)
-        Collections.sort(people);
-
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Cata - 20
-        Zeeeec - 25
-        Appkz - 30
-        Pay - 50
-        Ye - 50
-        */
-
-        // Sorting with the Comparator - Comparator comes from a static nested class - sort by name (asc)
-        Collections.sort(people, new Person.PersonNameComparator());
-
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Appkz - 30
-        Cata - 20
-        Pay - 50
-        Ye - 50
-        Zeeeec - 25
-        */
-
-        // Sorting with the Comparator and revsersed method - Comparator comes from a static nested class - sort by name (desc)
-        Collections.sort(people, new Person.PersonNameComparator().reversed());
-
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Zeeeec - 25
-        Ye - 50
-        Pay - 50
-        Cata - 20
-        Appkz - 30
-        */
-
-        // Sorting with the Comparator - Comparator comes from a inner class - sort by name length (asc)
-        Collections.sort(people, new Person().new PersonNameLengthComparator());
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Ye - 50
-        Pay - 50
-        Cata - 20
-        Appkz - 30
-        Zeeeec - 25
-        */
-
-        // Sorting with static method (local class in that method) - sort by the last char of the name (asc)
-        Person.sortByNameLastChar(people);
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Cata - 20
-        Zeeeec - 25
-        Ye - 50
-        Pay - 50
-        Appkz - 30
-        */
-
-        // Sorting with static method (anonymous class in that method) - sort by age (asc)
-        Person.sortByAgeAscI(people);
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Cata - 20
-        Zeeeec - 25
-        Appkz - 30
-        Ye - 50
-        Pay - 50
-        */
-
-        // Sorting with static method (lambda expression in that method) - sort by age (desc)
-        Person.sortByAgeDesc(people);
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Ye - 50
-        Pay - 50
-        Appkz - 30
-        Zeeeec - 25
-        Cata - 20
-        */
-
-        // Sorting with static method (lambda expression in that method) - sort by age (asc)
-        Person.sortByAgeAscII(people);
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Cata - 20
-        Zeeeec - 25
-        Appkz - 30
-        Ye - 50
-        Pay - 50
-        */
-
-        // Sorting with static method (method references in that method) - sort by age (asc) then name (asc)
-        Person.sortByAgeThenName(people);
-        for (Person p : people) {
-            System.out.println(p);
-        }
-        System.out.println("---");
-        /*
-        Cata - 20
-        Zeeeec - 25
-        Appkz - 30
-        Pay - 50
-        Ye - 50
-        */
     }
 }
 
