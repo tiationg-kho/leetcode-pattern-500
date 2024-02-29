@@ -14,22 +14,22 @@
  * }
  */
 class Solution {
-  public TreeNode invertTree(TreeNode root) {
-      return helper(root);
-  }
+    public TreeNode invertTree(TreeNode root) {
+        return helper(root);
+    }
 
-  public TreeNode helper(TreeNode node) {
-      if (node == null) {
-          return node;
-      }
-      TreeNode newLeft = node.right;
-      TreeNode newRight = node.left;
-      node.left = newLeft;
-      node.right = newRight;
-      helper(node.left);
-      helper(node.right);
-      return node;
-  }
+    public TreeNode helper(TreeNode node) {
+        if (node == null) {
+            return node;
+        }
+        TreeNode newLeft = node.right;
+        TreeNode newRight = node.left;
+        node.left = newLeft;
+        node.right = newRight;
+        helper(node.left);
+        helper(node.right);
+        return node;
+    }
 }
 
 // time O(n)
