@@ -24,7 +24,6 @@ class Solution:
                 break
         return dummy.next
 
-                
 # time O(m+n), m and n are the linked lists' size
 # space O(1)
 # using linked list and sentinel node
