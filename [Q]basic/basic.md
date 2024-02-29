@@ -1340,7 +1340,7 @@ public class Main {
         System.out.println(Arrays.toString(charArr)); // [, , , , ]
         System.out.println(charArr[0] == '\u0000'); // true
 
-        int[] intArr2 = {9, 3, 2, 100, 4};
+        int[] intArr2 = new int[]{9, 3, 2, 100, 4};
         System.out.println(Arrays.toString(intArr2)); // [9, 3, 2, 100, 4]
         System.out.println("-----");
 
@@ -2145,10 +2145,15 @@ public class Main {
         char c2 = 'A';
         char c3 = '5';
         System.out.println(Character.isLowerCase(c1)); // true
+        System.out.println(Character.toLowerCase(c2)); // a
         System.out.println(Character.isUpperCase(c2)); // true
+        System.out.println(Character.toUpperCase(c1)); // A
         System.out.println(Character.isLetter(c1)); // true
         System.out.println(Character.isDigit(c3)); // true
         System.out.println(Character.isLetterOrDigit(c3)); // true
+
+        String sFromChar = Character.toString(c3);
+        System.out.println(sFromChar); // 5
         System.out.println("-----");
 
         // StringBuilder
@@ -2189,6 +2194,11 @@ public class Main {
         sbf5.reverse();
         String s12 = sbf5.toString();
         System.out.println(s12); // olleH
+
+        Character c = sbf5.charAt(3);
+        System.out.println(c); // e
+
+        System.out.println(sbf5.length()); // 5
         System.out.println("-----");
     }
 }
@@ -2419,6 +2429,16 @@ public class Main {
         Random random = new Random();
         int randomInt = random.nextInt(b - a + 1) + a;
         System.out.println(randomInt); // 2 or 3 or 4 or 5
+        System.out.println("-----");
+
+        // compare
+        int p = 100;
+        int q = 100;
+        System.out.println(p == q); // true
+
+        Integer x = 100;
+        Integer y = 100;
+        System.out.println(x.equals(y)); // true
         System.out.println("-----");
     }
 }
