@@ -13,6 +13,6 @@ class Solution:
                 return False
         return True
 
-# time O(n+m)
+# time O(n)
 # space O(26) == O(1), constant
 # using hashmap and store sth’s freq
