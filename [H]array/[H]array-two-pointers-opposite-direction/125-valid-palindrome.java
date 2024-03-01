@@ -3,8 +3,8 @@ class Solution {
         int left = 0;
         int right = s.length() - 1;
         while (left < right) {
-            Character lc = s.charAt(left);
-            Character rc = s.charAt(right);
+            char lc = s.charAt(left);
+            char rc = s.charAt(right);
             if (!Character.isLetterOrDigit(lc)) {
                 left += 1;
             } else if (!Character.isLetterOrDigit(rc)) {

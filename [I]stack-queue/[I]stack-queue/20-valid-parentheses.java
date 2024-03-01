@@ -7,7 +7,7 @@ class Solution {
         ArrayDeque<Character> stack = new ArrayDeque<>();
         for (Character c: s.toCharArray()) {
             if (closeOpen.containsKey(c)) {
-                if (!closeOpen.get(c).equals(stack.peek())) {
+                if (!Objects.equals(stack.peek(), closeOpen.get(c))) {
                     return false;
                 }
                 stack.pop();

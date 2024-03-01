@@ -14,5 +14,5 @@ class Solution:
         return res
     
 # time O(n)
-# space O(n)
+# space O(1)
 # using hashmap and store sth’s freq

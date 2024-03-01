@@ -2353,6 +2353,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Main {
@@ -2431,15 +2432,19 @@ public class Main {
         System.out.println(randomInt); // 2 or 3 or 4 or 5
         System.out.println("-----");
 
-        // compare
+        // compare (focus on val)
+        // 1. for two primitive int values, use ==, !=, >, <, >=, and <=
+        // 2. for a primitive int with an Integer, use ==, !=, >, <, >=, and <=
+        // (auto-unboxing would happen, be aware of null object)
+        // 3. for two Integer objects, use Objects.equals(x, y), >, <, >=, and <=
+
         int p = 100;
         int q = 100;
         System.out.println(p == q); // true
 
         Integer x = 100;
         Integer y = 100;
-        System.out.println(x.equals(y)); // true
-        System.out.println("-----");
+        System.out.println(Objects.equals(x, y)); // true
     }
 }
 
