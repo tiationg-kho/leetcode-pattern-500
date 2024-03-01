@@ -1539,6 +1539,10 @@ public class Main {
         list2.add("C");
         String[] array = list2.toArray(new String[list2.size()]);
         System.out.println(Arrays.toString(array)); // [A, B, C]
+
+        List<Integer> integerList = new ArrayList<>(Arrays.asList(1, 2, 3));
+        int[] intArr = integerList.stream().mapToInt(i -> i).toArray();
+        System.out.println(Arrays.toString(intArr)); // [1, 2, 3]
         System.out.println("-----");
 
         // ArrayList reverse in O(n)
@@ -2138,6 +2142,12 @@ public class Main {
 
         String s5 = "Hello".concat(" World").concat("!!");
         System.out.println(s5); // Hello World!!
+        System.out.println("-----");
+
+        // String from int O(logn) (base 10) or O(1)
+        int i = 1001;
+        String iString = i + "";
+        System.out.println(iString); // 1001
         System.out.println("-----");
 
         // char related methods

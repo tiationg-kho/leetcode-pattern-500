@@ -12,11 +12,9 @@ class Solution:
         while first_half > second_half:
             first_half, remainder = divmod(first_half, 10)
             second_half = second_half * 10 + remainder
-            if first_half == second_half:
-                return True
-            if first_half == second_half // 10:
-                return True
-        return False
+        if first_half < second_half:
+            second_half //= 10
+        return first_half == second_half
 
 # time O(logn), base 10
 # space O(1)
