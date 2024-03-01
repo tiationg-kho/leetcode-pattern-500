@@ -13,7 +13,7 @@ class Solution:
 
 # time O(n)
 # space O(1)
-# using array and shrink type sliding window and hashmap
+# using array and shrink type sliding window
 '''
 1. notice: only works for positive elements
 2. if num can be negative then use monotonic queue and prefix sum and sliding window
