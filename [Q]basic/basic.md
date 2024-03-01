@@ -2445,6 +2445,7 @@ public class Main {
         Integer x = 100;
         Integer y = 100;
         System.out.println(Objects.equals(x, y)); // true
+        System.out.println("-----");
     }
 }
 
