@@ -14,4 +14,4 @@ class Solution:
 
 # time O(n)
 # space O(1)
-# using array and standard sliding window and hashmap
+# using array and standard sliding window
