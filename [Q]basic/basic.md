@@ -2435,8 +2435,8 @@ public class Main {
         // compare (focus on val)
         // 1. for two primitive int values, use ==, !=, >, <, >=, and <=
         // 2. for a primitive int with an Integer, use ==, !=, >, <, >=, and <=
-        // (auto-unboxing would happen, be aware of null object)
         // 3. for two Integer objects, use Objects.equals(x, y), >, <, >=, and <=
+        // (in 2 and 3, auto-unboxing might happen, be aware of null object)
 
         int p = 100;
         int q = 100;
