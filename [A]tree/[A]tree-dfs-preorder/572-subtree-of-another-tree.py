@@ -29,14 +29,10 @@ class Solution:
         val = 0
         remove_val = (base ** (len(subtree) - 1)) % mod
         for i, c in enumerate(tree):
-            if i < len(subtree):
-                val = (val * base + ord(c)) % mod
-                if i == len(subtree) - 1:
-                    if val == target_val:
-                        return True
-            else:
+            if i >= len(subtree):
                 val -= (remove_val * ord(tree[i - len(subtree)])) % mod
-                val = (val * base + ord(c)) % mod
+            val = (val * base + ord(c)) % mod
+            if i >= len(subtree) - 1:
                 if val == target_val:
                     return True
         return False
