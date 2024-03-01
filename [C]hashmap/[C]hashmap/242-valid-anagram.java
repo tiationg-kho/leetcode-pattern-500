@@ -12,7 +12,7 @@ class Solution {
             tCharToFreq.compute(tc, (k, v) -> v == null ? 1 : v + 1);
         }
         for (Character c: sCharToFreq.keySet()) {
-            if (!sCharToFreq.get(c).equals(tCharToFreq.get(c))) {
+            if (!Objects.equals(sCharToFreq.get(c), tCharToFreq.get(c))) {
                 return false;
             }
         }
