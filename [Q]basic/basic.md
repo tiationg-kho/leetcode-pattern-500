@@ -2078,10 +2078,15 @@ public class Main {
         System.out.println(s5); // Hello World!!
         System.out.println("-----");
 
-        // String from int O(logn) (base 10) or O(1)
+        // String from int in O(logn) (base 10) or O(1)
         int i = 1001;
         String iString = i + "";
         System.out.println(iString); // 1001
+        System.out.println("-----");
+
+        // String to int in O(n)
+        int intFromString = Integer.parseInt(iString);
+        System.out.println(intFromString); // 1001
         System.out.println("-----");
 
         // char related methods
@@ -2293,6 +2298,7 @@ public class Main {
 ```Java
 package NumberSyntax;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class Main {
@@ -2393,16 +2399,14 @@ public class Main {
             Character.compare(x, y)
 
         03. int x, Integer y. use:
-            x == y (notice: not null-safe)
-            x != y (notice: not null-safe)
+            Objects.equals(x, y)
             x > y (notice: not null-safe)
             x < y (notice: not null-safe)
             x >= y (notice: not null-safe)
             x <= y (notice: not null-safe)
 
         04. char x, Character y. use:
-            x == y (notice: not null-safe)
-            x != y (notice: not null-safe)
+            Objects.equals(x, y)
             x > y (notice: not null-safe)
             x < y (notice: not null-safe)
             x >= y (notice: not null-safe)
