@@ -2089,6 +2089,23 @@ public class Main {
         System.out.println(intFromString); // 1001
         System.out.println("-----");
 
+        // char from int in O(1)
+        int asciiForA = 65;
+        char charA = (char) asciiForA;
+        System.out.println(charA); // A
+        System.out.println("-----");
+
+        // char to int in O(1)
+        char charZ = 'Z';
+        int asciiForZ = charZ + 0;
+        System.out.println(asciiForZ); // 90
+        System.out.println("-----");
+
+        // char to String in O(1)
+        String stringZ = charZ + "";
+        System.out.println(stringZ); // Z
+        System.out.println("-----");
+
         // char related methods
         char c1 = 'a';
         char c2 = 'A';
