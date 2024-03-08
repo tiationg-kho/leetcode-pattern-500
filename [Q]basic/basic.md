@@ -1420,7 +1420,7 @@ public class Main {
         System.out.println(list1); // [100, 5, 8, 99]
         System.out.println("-----");
 
-        // ArrayList remove in O(n)
+        // ArrayList remove in O(n), but remvoe last element is O(1)
         list1.remove(list1.size() - 1);
         System.out.println(list1); // [100, 5, 8]
         System.out.println("-----");
