@@ -23,5 +23,5 @@ class Solution:
         return res
     
 # time O(n), due to traverse
-# space O(n), due to queue's size (tree diameter or last level)
+# space O(n)
 # using tree and bfs
