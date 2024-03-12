@@ -33,3 +33,6 @@ class Solution:
 # time O(n**2), traversal costs O(n), and each time need to using two pointers to expand
 # space O(1)
 # using array and two pointers opposite direction and expand type
+'''
+1. this is not optimal solution
+'''
