@@ -2136,6 +2136,16 @@ public class Main {
         System.out.println("-----");
 
         // StringBuffer related methods
+        // toString, O(n)
+        // append, O(L)
+        // insert, O(n)
+        // delete, O(n)
+        // replace, O(n+L)
+        // reverse, O(n)
+        // charAt, O(1)
+        // deleteCharAt, O(n), and O(1) for last idx
+        // length, O(1)
+
         StringBuffer sbf = new StringBuffer("Hello");
         sbf.append(" World");
         String s8 = sbf.toString();
@@ -2164,7 +2174,11 @@ public class Main {
         Character c = sbf5.charAt(3);
         System.out.println(c); // e
 
-        System.out.println(sbf5.length()); // 5
+        sbf5.deleteCharAt(3);
+        String s13 = sbf5.toString();
+        System.out.println(s13); // ollH
+
+        System.out.println(sbf5.length()); // 4
         System.out.println("-----");
     }
 }

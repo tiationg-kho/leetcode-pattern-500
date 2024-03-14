@@ -34,5 +34,5 @@ class Solution:
         return False
     
 # time O(RC * 3**L)
-# space O(RC+L), due to hashmap
+# space O(RC), due to hashset
 # using dfs and backtracking and backtracking with constraints and pruning

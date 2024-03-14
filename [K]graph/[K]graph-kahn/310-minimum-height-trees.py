@@ -1,29 +1,32 @@
-from collections import deque, defaultdict
+from collections import deque
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
         if n == 1:
             return [0]
-        graph = defaultdict(set)
-        for start, end in edges:
-            graph[start].add(end)
-            graph[end].add(start)
-            
-        queue = deque()
-        for node, children in graph.items():
-            if len(children) == 1:
-                queue.append(node)
+        graph = [[] for _ in range(n)]
+        indegrees = [0 for _ in range(n)]
+        for p, q in edges:
+            graph[p].append(q)
+            graph[q].append(p)
+            indegrees[q] += 1
+            indegrees[p] += 1
+
+        queue = deque([])
+        for i, indegree in enumerate(indegrees):
+            if indegree == 1:
+                queue.append(i)
 
         while queue:
-            length = len(queue)
-            res = []
-            for _ in range(length):
+            count = len(queue)
+            level_nodes = []
+            for _ in range(count):
                 node = queue.popleft()
-                res.append(node)
-                for next_node in graph[node]:
-                    graph[next_node].remove(node)
-                    if len(graph[next_node]) == 1:
-                        queue.append(next_node)
-        return res
+                level_nodes.append(node)
+                for neighbor in graph[node]:
+                    indegrees[neighbor] -= 1
+                    if indegrees[neighbor] == 1:
+                        queue.append(neighbor)
+        return level_nodes
     
 # time O(V+E)
 # space O(V+E), due to building graph
