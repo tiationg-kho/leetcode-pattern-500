@@ -4,20 +4,16 @@ class Solution:
         char_freq = defaultdict(int)
         for c in s:
             char_freq[c] += 1
-        
-        used = set()
         stack = []
+        visited = set()
         for c in s:
-            if c in used:
-                char_freq[c] -= 1
-                continue
-            while stack and stack[- 1] > c and char_freq[stack[- 1]] >= 1:
-                used.remove(stack[- 1])
-                stack.pop()
-            used.add(c)
-            stack.append(c)
+            while stack and char_freq[stack[- 1]] and stack[- 1] > c and c not in visited:
+                remove_c = stack.pop()
+                visited.remove(remove_c)
+            if c not in visited:
+                stack.append(c)
+                visited.add(c)
             char_freq[c] -= 1
-
         return ''.join(stack)
     
 # time O(n)
