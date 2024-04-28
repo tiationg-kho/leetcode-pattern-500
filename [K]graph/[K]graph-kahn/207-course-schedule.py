@@ -20,6 +20,7 @@ class Solution:
                 indegrees[neighbor] -= 1
                 if indegrees[neighbor] == 0:
                     queue.append(neighbor)
+
         return len(res) == numCourses
     
 # time O(V+E)
@@ -38,9 +39,6 @@ class Solution:
         def dfs(node):
             nonlocal cyclic
             node_flag[node] = 1
-            if not graph[node]:
-                node_flag[node] = 2
-                return
             for neighbor in graph[node]:
                 if node_flag[neighbor] == 0:
                     dfs(neighbor)
