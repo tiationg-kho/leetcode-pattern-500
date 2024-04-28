@@ -1,25 +1,25 @@
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        res = 0
         rows, cols = len(matrix), len(matrix[0])
-        counts = [[- 1 for _ in range(cols)] for _ in range(rows)]
+        cell_len = {}
 
         def dfs(r, c):
-            next_count = 0
+            total = 1
+            new_total = total
             for next_r, next_c in [(r+1, c), (r-1, c), (r, c+1), (r, c-1)]:
                 if next_r not in range(rows) or next_c not in range(cols) or matrix[r][c] >= matrix[next_r][next_c]:
                     continue
-                if counts[next_r][next_c] == - 1:
-                    next_count = max(next_count, dfs(next_r, next_c))
+                if (next_r, next_c) in cell_len:
+                    new_total = max(new_total, total + cell_len[(next_r, next_c)])
                 else:
-                    next_count = max(next_count, counts[next_r][next_c])
-            counts[r][c] = 1 + next_count
-            return counts[r][c]
-        
+                    new_total = max(new_total, total + dfs(next_r, next_c))
+            cell_len[(r, c)] = new_total
+            return new_total
+
         for r in range(rows):
             for c in range(cols):
-                res = max(res, dfs(r, c))
-        return res
+                dfs(r, c)
+        return max(cell_len.values())
     
 # time O(RC)
 # space O(RC)
