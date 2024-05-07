@@ -1,33 +1,38 @@
 from collections import deque
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        rows, cols = len(heights), len(heights[0])
-        pacifics = [[False for _ in range(cols)] for _ in range(rows)]
-        atlantics = [[False for _ in range(cols)] for _ in range(rows)]
-        pacific_nodes = [(r, 0) for r in range(rows)] + [(0, c) for c in range(cols)]
-        atlantic_nodes = [(r, cols - 1) for r in range(rows)] + [(rows - 1, c) for c in range(cols)]
+        g = heights
+        rows, cols = len(g), len(g[0])
 
-        def bfs(nodes, ocean):
-            visited = set()
-            queue = deque([])
-            for node in nodes:
-                queue.append(node)
-                visited.add(node)
+        def bfs(queue, visited, temp):
             while queue:
                 r, c = queue.popleft()
-                ocean[r][c] = True
+                temp[r][c] += 1
                 for next_r, next_c in [(r+1, c), (r-1, c), (r, c+1), (r, c-1)]:
-                    if next_r not in range(rows) or next_c not in range(cols) or (next_r, next_c) in visited or heights[r][c] > heights[next_r][next_c]:
+                    if next_r not in range(rows) or next_c not in range(cols) or (next_r, next_c) in visited or g[r][c] > g[next_r][next_c]:
                         continue
                     queue.append((next_r, next_c))
                     visited.add((next_r, next_c))
         
-        bfs(pacific_nodes, pacifics)
-        bfs(atlantic_nodes, atlantics)
+        temp = [[0 for _ in range(cols)] for _ in range(rows)]
+        p_queue = deque([])
+        p_visited = set()
+        a_queue = deque([])
+        a_visited = set()
+        for r in range(rows):
+            for c in range(cols):
+                if r == 0 or c == 0:
+                    p_queue.append((r, c))
+                    p_visited.add((r, c))
+                if r == rows - 1 or c == cols - 1:
+                    a_queue.append((r, c))
+                    a_visited.add((r, c))
+        bfs(p_queue, p_visited, temp)
+        bfs(a_queue, a_visited, temp)
         res = []
         for r in range(rows):
             for c in range(cols):
-                if pacifics[r][c] and atlantics[r][c]:
+                if temp[r][c] == 2:
                     res.append([r, c])
         return res
     
