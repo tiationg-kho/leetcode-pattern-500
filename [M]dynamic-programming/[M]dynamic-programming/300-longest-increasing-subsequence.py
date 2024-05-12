@@ -1,12 +1,10 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         dp = [1 for _ in range(len(nums))]
-
-        for i in range(len(nums)):
-            for j in range(i):
-                if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], dp[j] + 1)
-        
+        for end in range(len(nums)):
+            for start in range(end):
+                if nums[start] < nums[end]:
+                    dp[end] = max(dp[end], dp[start] + 1)
         return max(dp)
 
 # time O(n**2), due to each num has run a loop to check the nums before it
@@ -16,15 +14,26 @@ class Solution:
 1. dp[i] means the length of LIS which ends in i
 '''
 
-import bisect
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
+
+        def find_first_larger_or_equal(vals, num):
+            left, right, boundary = 0, len(vals) - 1, - 1
+            while left <= right:
+                m = (left + right) // 2
+                if num <= vals[m]:
+                    boundary = m
+                    right = m - 1
+                else:
+                    left = m + 1
+            return boundary
+
         dp = []
-        for num in nums:
+        for i, num in enumerate(nums):
             if not dp or dp[- 1] < num:
                 dp.append(num)
             else:
-                idx = bisect.bisect_left(dp, num)
+                idx = find_first_larger_or_equal(dp, num)
                 dp[idx] = num
         return len(dp)
 
