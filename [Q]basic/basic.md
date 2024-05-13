@@ -3125,7 +3125,7 @@ char letter = s[4];
 Console.WriteLine(letter); // e
 Console.WriteLine("-----");
 
-// str.Substring(idx, count) in O(n)
+// str.Substring(idx, count) or str.Substring(idx) in O(n)
 string substr = s.Substring(1, 2);
 Console.WriteLine(substr); // pp
 Console.WriteLine("-----");
