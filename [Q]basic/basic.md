@@ -2488,10 +2488,6 @@ Console.WriteLine(charArr[0] == '\u0000'); // True
 int[] intArr2 = [9, 3, 2, 100, 4];
 Console.WriteLine(string.Join(", ", intArr2)); // 9, 3, 2, 100, 4
 
-int[] intArr3 = Enumerable.Repeat(int.MaxValue, 5).ToArray();
-Console.WriteLine(string.Join(", ", intArr3)); // 2147483647, 2147483647, 2147483647, 2147483647, 2147483647
-Console.WriteLine("-----");
-
 // arr[idx] = val (set) in O(1)
 intArr[2] = 100;
 Console.WriteLine(string.Join(", ", intArr)); // 0, 0, 100, 0, 0
@@ -2771,29 +2767,6 @@ Console.WriteLine(minChar); // A
 Console.WriteLine(maxChar); // Z
 Console.WriteLine("-----");
 
-// list.BinarySearch(val) in O(logn)
-// if found, res is non-negative:
-// if have duplicate target vals, not guarantee which idx of them will be returned
-// try to get first/last one of them will cost additional O(k)
-// if not found, res is negative:
-// we can use complement num to get insertion point
-List<int> list5 = [20, 49, 88, 120];
-int foundIdx = list5.BinarySearch(20);
-Console.WriteLine(foundIdx); // 0
-
-int foundIdx2 = list5.BinarySearch(49);
-Console.WriteLine(foundIdx2); // 1
-
-int nonFoundIdx = list5.BinarySearch(8);
-Console.WriteLine(~nonFoundIdx); // 0
-
-int nonFoundIdx2 = list5.BinarySearch(50);
-Console.WriteLine(~nonFoundIdx2); // 2
-
-int nonFoundIdx3 = list5.BinarySearch(130);
-Console.WriteLine(~nonFoundIdx3); // 4
-Console.WriteLine("-----");
-
 ```
 
 # Dictionary
@@ -2893,78 +2866,7 @@ Key: B, Value: 500
 Key: C, Value: 10
 */
 
-// dict.TryGetValue(key, out value) in O(1) (avg)
-Dictionary<string, int> map3 = [];
-if (map3.TryGetValue("A", out int valFromTryGet))
-{
-    map3["A"] = valFromTryGet + 1;
-}
-else
-{
-    map3["A"] = 1;
-}
-Console.WriteLine(string.Join(", ", map3)); // [A, 1]
-if (map3.TryGetValue("A", out int valFromTryGet2))
-{
-    map3["A"] = valFromTryGet2 + 1;
-}
-else
-{
-    map3["A"] = 1;
-}
-if (map3.TryGetValue("B", out int valFromTryGet3))
-{
-    map3["B"] = valFromTryGet3 + 1;
-}
-else
-{
-    map3["B"] = 1;
-}
-Console.WriteLine(string.Join(", ", map3)); // [A, 2], [B, 1]
-
-Dictionary<string, List<int>> map4 = [];
-if (map4.TryGetValue("A", out List<int>? valFromTryGet4))
-{
-    valFromTryGet4.Add(1);
-}
-else
-{
-    map4["A"] = [1];
-}
-foreach (var pair in map4)
-{
-    Console.WriteLine($"{pair.Key}: [{string.Join(", ", pair.Value)}]");
-}
-/*
-A: [1]
-*/
-if (map4.TryGetValue("A", out List<int>? valFromTryGet5))
-{
-    valFromTryGet5.Add(1);
-}
-else
-{
-    map4["A"] = [1];
-}
-if (map4.TryGetValue("B", out List<int>? valFromTryGet6))
-{
-    valFromTryGet6.Add(2);
-}
-else
-{
-    map4["B"] = [2];
-}
-foreach (var pair in map4)
-{
-    Console.WriteLine($"{pair.Key}: [{string.Join(", ", pair.Value)}]");
-}
-Console.WriteLine("-----");
-/*
-A: [1, 1]
-B: [2]
-*/
-
-// dict.Min() or dict.Max() in O(n)
+// dict.Min() or dict.Max() or dict.MaxBy() in O(n)
 string? minKey = map2.Keys.Min();
 Console.WriteLine(minKey); // A
 int maxValue = map2.Values.Max();
@@ -3157,13 +3059,47 @@ Console.WriteLine(val); // 100
 Console.WriteLine(string.Join(", ", queue)); // 30, 66
 Console.WriteLine("-----");
 
-// queue.Peek()  and  in O(1)
+// queue.Peek() in O(1)
 int oldest = queue.Peek();
 Console.WriteLine(oldest); // 30
 Console.WriteLine("-----");
 
 // queue.Count in O(1)
 int count = queue.Count;
+Console.WriteLine(count); // 2
+Console.WriteLine("-----");
+
+```
+
+# LinkedList (use as Deque)
+```csharp
+// LinkedList<T>
+
+// deque init in O(1)
+LinkedList<int> deque = [];
+Console.WriteLine("-----");
+
+// deque.AddLast(val) or deque.AddFirst(val) in O(1)
+deque.AddLast(100);
+deque.AddLast(30);
+deque.AddLast(66);
+Console.WriteLine(string.Join(", ", deque)); // 100, 30, 66
+Console.WriteLine("-----");
+
+// deque.RemoveFirst() or deque.RemoveLast() in O(1)
+deque.RemoveFirst();
+Console.WriteLine(string.Join(", ", deque)); // 30, 66
+Console.WriteLine("-----");
+
+// deque.First.Value or deque.Last.Value in O(1)
+int oldest = deque.First.Value;
+int newest = deque.Last.Value;
+Console.WriteLine(oldest); // 30
+Console.WriteLine(newest); // 66
+Console.WriteLine("-----");
+
+// deque.Count in O(1)
+int count = deque.Count;
 Console.WriteLine(count); // 2
 Console.WriteLine("-----");
 
@@ -3176,9 +3112,9 @@ Console.WriteLine("-----");
 // string: immutable
 // StringBuilder: mutable
 
-// str.Length in O(1)
-using System.Text;
+using System.Text;  // For StringBuilder
 
+// str.Length in O(1)
 string s = "Apple";
 int len = s.Length;
 Console.WriteLine(len); // 5
