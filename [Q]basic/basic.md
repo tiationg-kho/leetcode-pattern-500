@@ -3132,6 +3132,7 @@ Console.WriteLine("-----");
 int count = stack.Count;
 Console.WriteLine(count); // 2
 Console.WriteLine("-----");
+
 ```
 
 # Queue
@@ -3362,6 +3363,11 @@ double d7 = Math.Ceiling(9.01);
 Console.WriteLine(d7); // 10
 double d8 = Math.Ceiling(-9.01);
 Console.WriteLine(d8); // -9
+
+double d9 = Math.Round(9.015, 2);
+Console.WriteLine(d9); // 9.02
+double d10 = Math.Round(-9.014, 2);
+Console.WriteLine(d10); // -9.01
 Console.WriteLine("-----");
 
 // MaxValue and MinValue
