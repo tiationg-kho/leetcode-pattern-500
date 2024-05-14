@@ -6,22 +6,22 @@
 #         self.right = right
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
-        
+
         def dfs(node):
             if not node:
-                return (0, None)
-            left_height, left_cand = dfs(node.left)
-            right_height, right_cand = dfs(node.right)
-            cur_height = max(left_height + 1, right_height + 1)
-            if left_height == right_height:
+                return None, 0
+            left_cand, left_depth = dfs(node.left)
+            right_cand, right_depth = dfs(node.right)
+            cur_cand, cur_depth = None, max(left_depth + 1, right_depth + 1)
+            if left_depth == right_depth:
                 cur_cand = node
-            elif left_height > right_height:
+            elif left_depth > right_depth:
                 cur_cand = left_cand
             else:
                 cur_cand = right_cand
-            return (cur_height, cur_cand)
+            return cur_cand, cur_depth
 
-        return dfs(root)[1]
+        return dfs(root)[0]
     
 # time O(n)
 # space O(n)
