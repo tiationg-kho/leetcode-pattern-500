@@ -6,24 +6,21 @@
 #         self.right = right
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
-        
-        n = len(preorder)
         idx = 0
 
-        def build_helper(lower, upper):
+        def build(min_val, max_val):
             nonlocal idx
-            if idx >= n:
+            if idx == len(preorder):
                 return None
-            val = preorder[idx]
-            if val <= lower or val >= upper:
+            if preorder[idx] < min_val or preorder[idx] > max_val:
                 return None
-            node = TreeNode(val)
+            node = TreeNode(preorder[idx])
             idx += 1
-            node.left = build_helper(lower, val)
-            node.right = build_helper(val, upper)
+            node.left = build(min_val, node.val)
+            node.right = build(node.val, max_val)
             return node
-
-        return build_helper(float('-inf'), float('inf'))
+        
+        return build(float('-inf'), float('inf'))
     
 # time O(n)
 # space O(n)
