@@ -116,6 +116,13 @@ class UnionFind:
             self.parent[p] = self.parent[self.parent[p]]
             p = self.parent[p]
         return p
+    
+    '''
+    def find(self, p):
+        if p != self.parent[p]:
+            self.parent[p] = self.find(self.parent[p])
+        return self.parent[p]
+    '''
 
     # union by rank
     def union(self, p, q):
