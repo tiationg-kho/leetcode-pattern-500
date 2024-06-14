@@ -41,7 +41,7 @@
             - dynamic array adding element: worst-case time complexity is O(n), amortized time complexity is O(1)
                 - because when array is full, resizing takes O(n) time
 
-## **Python**
+## python
 # list
 ```python
 # list
@@ -1185,7 +1185,7 @@ outer()
 
 ```
 
-## **Java**
+## java
 
 # Array
 ```Java
