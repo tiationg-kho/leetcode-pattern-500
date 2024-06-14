@@ -1,4 +1,6 @@
-# complexity
+# basic
+
+## complexity
 
 - **Time Complexity**
     - **Constant. O(k)**
@@ -39,7 +41,7 @@
             - dynamic array adding element: worst-case time complexity is O(n), amortized time complexity is O(1)
                 - because when array is full, resizing takes O(n) time
 
-# **Python**
+## **Python**
 # list
 ```python
 # list
@@ -1183,7 +1185,7 @@ outer()
 
 ```
 
-# **Java**
+## **Java**
 
 # Array
 ```Java
