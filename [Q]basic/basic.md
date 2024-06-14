@@ -42,7 +42,7 @@
                 - because when array is full, resizing takes O(n) time
 
 ## python
-# list
+- list
 ```python
 # list
 
@@ -339,7 +339,7 @@ sl = SortedList([10, 11, 12, 13, 14])
 sl.bisect_left(12) # 2
 ```
 
-# dict
+- dict
 ```python
 # dict
 
@@ -498,7 +498,7 @@ idx = sd.bisect_left(25)
 print(idx) # 3
 ```
 
-# set
+- set
 ```python
 # set
 
@@ -573,7 +573,7 @@ s3 = s1.symmetric_difference(s2)
 print(s3) # {1, 2, 4, 5}
 ```
 
-# tuple
+- tuple
 ```python
 # tuple
 
@@ -594,7 +594,7 @@ t = tuple(["a", "b", "c"]) # ('a', 'b', 'c')
 t = ("abc",) # ('abc',)
 ```
 
-# heap
+- heap
 ```python
 # heap
 
@@ -629,7 +629,7 @@ heapify(list2)
 print(list2) # [-9, -7, -5, -1, -3]
 ```
 
-# queue
+- queue
 ```python
 # queue
 # in Python, list can be used as stack
@@ -674,7 +674,7 @@ queue2.popleft() # c
 # extend() is O(k), add multiple values
 ```
 
-# number
+- number
 ```python
 # number
 
@@ -962,7 +962,7 @@ print(sqrt(5)) # 2.23606797749979
 print(int(sqrt(5))) # 2
 ```
 
-# string
+- string
 ```python
 # string
 
@@ -1083,7 +1083,7 @@ s = '0'
 s = '1' + s + '1' # '101'
 ```
 
-# class
+- class
 ```python
 # class
 
@@ -1187,7 +1187,7 @@ outer()
 
 ## java
 
-# Array
+- Array
 ```Java
 package ArraySyntax;
 
@@ -1373,7 +1373,7 @@ public class Main {
 
 ```
 
-# ArrayList
+- ArrayList
 ```Java
 package ArrayListSyntax;
 
@@ -1559,7 +1559,7 @@ public class Main {
 
 ```
 
-# HashMap
+- HashMap
 ```Java
 package HashMapSyntax;
 
@@ -1724,7 +1724,7 @@ public class Main {
 
 ```
 
-# HashSet
+- HashSet
 ```Java
 package HashSetSyntax;
 
@@ -1805,7 +1805,7 @@ public class Main {
 
 ```
 
-# PriorityQueue
+- PriorityQueue
 ```Java
 package PriorityQueueSyntax;
 
@@ -1876,7 +1876,7 @@ record FreqWord(String content, Integer freq) { }
 
 ```
 
-# ArrayDeque
+- ArrayDeque
 ```Java
 package ArrayDequeSyntax;
 
@@ -1975,7 +1975,7 @@ record Pair(TreeNode node, int level) { };
 
 ```
 
-# String
+- String
 ```Java
 package StringSyntax;
 
@@ -2187,7 +2187,7 @@ public class Main {
 
 ```
 
-# TreeMap
+- TreeMap
 ```Java
 package TreeMapSyntax;
 
@@ -2327,7 +2327,7 @@ public class Main {
 
 ```
 
-# Number
+- Number
 ```Java
 package NumberSyntax;
 
