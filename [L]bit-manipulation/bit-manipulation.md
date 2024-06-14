@@ -48,7 +48,7 @@ s = int_to_string(num)
 res = string_to_int(s) # 12345
 ```
 
-## patterns
+## pattern
 
 - xor
     - xor any num with itself, the result is 0
